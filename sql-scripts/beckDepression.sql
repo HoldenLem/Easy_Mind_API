@@ -31,5 +31,8 @@ CREATE TABLE beck_depression (
   question_eighteen SMALLINT NOT NULL,
   question_nineteen SMALLINT NOT NULL,
   question_twenty SMALLINT NOT NULL,
-  question_twenty_one SMALLINT NOT NULL
+  question_twenty_one SMALLINT NOT NULL,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id)
+        REFERENCES user_table (user_id)
 );

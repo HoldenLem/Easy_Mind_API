@@ -124,6 +124,7 @@ public class BeckDepressionInventory {
     @Max(value = 3,message = "The value cannot be higher than 3")
     private int questionTwentyOne;
 
+    private int userId;
 
 
     public BeckDepressionInventory() {
@@ -314,6 +315,14 @@ public class BeckDepressionInventory {
         this.questionTwentyOne = questionTwentyOne;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "BeckDepressionInventory{" +
@@ -340,6 +349,7 @@ public class BeckDepressionInventory {
                 ", questionNineteen=" + questionNineteen +
                 ", questionTwenty=" + questionTwenty +
                 ", questionTwentyOne=" + questionTwentyOne +
+                ", userId=" + userId +
                 '}';
     }
 }
