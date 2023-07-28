@@ -82,8 +82,7 @@ public class BeckDepressionInventory {
     private int questionEleven;
 
     @Column(name = "question_twelve", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
+
     private int questionTwelve;
 
     @Column(name = "question_thirteen", nullable = false)
