@@ -34,5 +34,5 @@ CREATE TABLE beck_depression (
   question_twenty_one SMALLINT NOT NULL,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id)
-        REFERENCES user_table (user_id)
+        REFERENCES user_table (id)
 );
