@@ -17,17 +17,11 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(NullEntityException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handlerNullEntityException(NullEntityException e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> entityNotFoundExceptionHandler(EntityNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
-
-   @ExceptionHandler(EntityNotFoundException.class)
-   @ResponseStatus(value = HttpStatus.NOT_FOUND)
-   public ResponseEntity<String> entityNotFoundExceptionHandler(EntityNotFoundException e){
-        return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
-   }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
@@ -41,8 +35,7 @@ public class GlobalExceptionHandler {
         List<String> errors = new ArrayList<>();
 
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
-            if (error instanceof FieldError) {
-                FieldError fieldError = (FieldError) error;
+            if (error instanceof FieldError fieldError) {
                 errors.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
             } else {
                 errors.add(error.getObjectName() + ": " + error.getDefaultMessage());

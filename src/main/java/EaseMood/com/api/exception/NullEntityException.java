@@ -1,6 +1,6 @@
 package EaseMood.com.api.exception;
 
-public class NullEntityException extends RuntimeException{
+public class NullEntityException extends RuntimeException {
 
     public NullEntityException() {
     }

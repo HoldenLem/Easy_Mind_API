@@ -16,18 +16,16 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     private final UserRepository repository;
 
     public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
 
-
     @Override
     @Transactional
     public User create(User user) {
-            return repository.save(user);
+        return repository.save(user);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User update(User user) {
-                return repository.save(user);
+        return repository.save(user);
     }
 
     @Override

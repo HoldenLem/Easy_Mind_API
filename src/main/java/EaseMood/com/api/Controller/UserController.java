@@ -3,13 +3,9 @@ package EaseMood.com.api.Controller;
 import EaseMood.com.api.DTO.UserDTO;
 import EaseMood.com.api.Entity.User;
 import EaseMood.com.api.Srvice.UserService;
-import EaseMood.com.api.exception.NullEntityException;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +22,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) {
-        User user  = convertToEntity(userDTO);
+        User user = convertToEntity(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.create(user));
     }
@@ -39,20 +35,20 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update( @Valid @RequestBody UserDTO userDTO){
-        User user  = convertToEntity(userDTO);
+    public ResponseEntity<User> update(@Valid @RequestBody UserDTO userDTO) {
+        User user = convertToEntity(userDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userService.update(user));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id){
+    public ResponseEntity<User> deleteUser(@PathVariable int id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping
-    private ResponseEntity<List<User>> getAllUsers(){
+    private ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
     }
 
