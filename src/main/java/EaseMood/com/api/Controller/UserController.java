@@ -26,26 +26,26 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> read(@PathVariable int id) {
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.ok()
                 .body(userService.readById(id));
     }
 
 
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.ok()
                 .body(userService.update(userDTO));
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<User> deleteUser(@PathVariable int id) {
         userService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     private ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
+        return ResponseEntity.ok().body(userService.getAll());
     }
 
 }
