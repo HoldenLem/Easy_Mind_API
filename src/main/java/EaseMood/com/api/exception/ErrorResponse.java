@@ -1,29 +1,7 @@
 package EaseMood.com.api.exception;
 
 import java.util.List;
-
-public class ErrorResponse {
-
-        private final int status;
-        private final String message;
-        private final List<String> errors;
-
-        public ErrorResponse(int status, String message, List<String> errors) {
-            this.status = status;
-            this.message = message;
-            this.errors = errors;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public List<String> getErrors() {
-            return errors;
-        }
-    }
-
+public record ErrorResponse(int status, String message, List<String> errors) {
+    // No need to explicitly define constructors, getters, or any other methods
+    // The record automatically generates them for us
+}
