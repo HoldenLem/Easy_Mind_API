@@ -5,24 +5,19 @@ import EaseMood.com.api.DTO.conversion.UserDtoToUserConverter;
 import EaseMood.com.api.Entity.User;
 import EaseMood.com.api.Repository.UserRepository;
 import EaseMood.com.api.Srvice.UserService;
-import EaseMood.com.api.exception.DuplicateFieldException;
-import EaseMood.com.api.exception.NullEntityException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
-
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     @Transactional
