@@ -20,9 +20,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) {
-        User user = convertToEntity(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.create(user));
+                .body(userService.create(userDTO));
     }
 
     @GetMapping("/{id}")
@@ -34,9 +33,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@Valid @RequestBody UserDTO userDTO) {
-        User user = convertToEntity(userDTO);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(userService.update(user));
+                .body(userService.update(userDTO));
     }
 
     @DeleteMapping("{id}")
@@ -48,17 +46,6 @@ public class UserController {
     @GetMapping
     private ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
-    }
-
-    private User convertToEntity(UserDTO userDTO) {
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-
-        return user;
     }
 
 }

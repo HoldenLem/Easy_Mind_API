@@ -1,5 +1,7 @@
 package EaseMood.com.api.Srvice.Impl;
 
+import EaseMood.com.api.DTO.UserDTO;
+import EaseMood.com.api.DTO.conversion.UserDtoToUserConverter;
 import EaseMood.com.api.Entity.User;
 import EaseMood.com.api.Repository.UserRepository;
 import EaseMood.com.api.Srvice.UserService;
@@ -24,7 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User create(User user) {
+    public User create(UserDTO userDTO) {
+        User user = UserDtoToUserConverter.convert(userDTO);
         return repository.save(user);
     }
 
@@ -36,7 +39,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User update(User user) {
+    public User update(UserDTO userDTO) {
+        User user = UserDtoToUserConverter.convert(userDTO);
         return repository.save(user);
     }
 
