@@ -1,7 +1,7 @@
 package easy.mind.com.api.Srvice.Impl;
 
 import easy.mind.com.api.DTO.UserDTO;
-import easy.mind.com.api.DTO.conversion.UserDtoToUserConverter;
+import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.Entity.User;
 import easy.mind.com.api.Repository.UserRepository;
 import easy.mind.com.api.Srvice.UserService;
@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -21,36 +22,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User create(UserDTO userDTO) {
-        User user = UserDtoToUserConverter.convert(userDTO);
-        return repository.save(user);
+    public UserDTO create(UserDTO userDTO) {
+        User user = UserDtoToUser.convertToUser(userDTO);
+        User createdUser = repository.save(user);
+        return UserDtoToUser.convertToUserDTO(createdUser);
     }
 
     @Override
-    public User readById(long id) {
-        return repository.findById(id)
+    public UserDTO readById(long id) {
+        User user = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
+        return UserDtoToUser.convertToUserDTO(user);
     }
 
     @Override
     @Transactional
-    public User update(UserDTO userDTO) {
-        User user = UserDtoToUserConverter.convert(userDTO);
-        return repository.save(user);
+    public UserDTO update(UserDTO userDTO) {
+        User user = UserDtoToUser.convertToUser(userDTO);
+        User createdUser = repository.save(user);
+        return UserDtoToUser.convertToUserDTO(createdUser);
     }
 
     @Override
     @Transactional
     public void delete(long id) {
-        User user = readById(id);
-        if (user != null) repository.delete(user);
+        UserDTO userDTO = readById(id);
+        if (userDTO != null) repository.delete(UserDtoToUser.convertToUser(userDTO));
         else {
             throw new EntityNotFoundException("User with id " + id + " not found");
         }
     }
 
     @Override
-    public List<User> getAll() {
-        return repository.findAll();
+    public List<UserDTO> getAll() {
+        List<User> users = repository.findAll();
+        return users.stream()
+                .map(UserDtoToUser::convertToUserDTO)
+                .collect(Collectors.toList());
     }
 }

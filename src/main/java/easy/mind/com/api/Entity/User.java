@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
+@Table(name = "user_table")
+
 @Data
 @Builder
-@NoArgsConstructor
-@Table(name = "user_table")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class User {
 

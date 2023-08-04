@@ -7,9 +7,10 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Data
 @NoArgsConstructor
+
+@Entity
 @Table(name = "beck_depression")
 public class BeckDepressionInventory {
 

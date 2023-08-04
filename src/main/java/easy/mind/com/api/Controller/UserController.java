@@ -19,20 +19,20 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.create(userDTO));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> read(@PathVariable int id) {
+    public ResponseEntity<UserDTO> read(@PathVariable int id) {
         return ResponseEntity.ok()
                 .body(userService.readById(id));
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok()
                 .body(userService.update(userDTO));
     }
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping
-    private ResponseEntity<List<User>> getAllUsers() {
+    private ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok().body(userService.getAll());
     }
 
