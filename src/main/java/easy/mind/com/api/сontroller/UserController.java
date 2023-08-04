@@ -1,8 +1,8 @@
-package easy.mind.com.api.Controller;
+package easy.mind.com.api.сontroller;
 
 import easy.mind.com.api.DTO.UserDTO;
-import easy.mind.com.api.Entity.User;
-import easy.mind.com.api.Srvice.UserService;
+import easy.mind.com.api.entity.User;
+import easy.mind.com.api.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
@@ -34,10 +34,10 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok()
-                .body(userService.update(userDTO));
+                .body(userService.create(userDTO));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable int id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();

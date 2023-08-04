@@ -1,4 +1,4 @@
-package easy.mind.com.api.Entity;
+package easy.mind.com.api.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -23,13 +23,9 @@ public class BeckDepressionInventory {
 
 
     @Column(name = "question_one", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
     private int questionOne;
 
     @Column(name = "question_two", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
     private int questionTwo;
 
     @Column(name = "question_three", nullable = false)

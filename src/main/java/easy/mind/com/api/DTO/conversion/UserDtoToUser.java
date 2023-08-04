@@ -1,7 +1,7 @@
 package easy.mind.com.api.DTO.conversion;
 
 import easy.mind.com.api.DTO.UserDTO;
-import easy.mind.com.api.Entity.User;
+import easy.mind.com.api.entity.User;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

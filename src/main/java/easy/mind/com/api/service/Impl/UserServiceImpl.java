@@ -1,10 +1,10 @@
-package easy.mind.com.api.Srvice.Impl;
+package easy.mind.com.api.service.Impl;
 
 import easy.mind.com.api.DTO.UserDTO;
 import easy.mind.com.api.DTO.conversion.UserDtoToUser;
-import easy.mind.com.api.Entity.User;
-import easy.mind.com.api.Repository.UserRepository;
-import easy.mind.com.api.Srvice.UserService;
+import easy.mind.com.api.entity.User;
+import easy.mind.com.api.repository.UserRepository;
+import easy.mind.com.api.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -37,26 +37,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO update(UserDTO userDTO) {
-        User user = UserDtoToUser.convertToUser(userDTO);
-        User createdUser = repository.save(user);
-        return UserDtoToUser.convertToUserDTO(createdUser);
-    }
-
-    @Override
-    @Transactional
     public void delete(long id) {
         UserDTO userDTO = readById(id);
-        if (userDTO != null) repository.delete(UserDtoToUser.convertToUser(userDTO));
-        else {
-            throw new EntityNotFoundException("User with id " + id + " not found");
-        }
+        repository.delete(UserDtoToUser.convertToUser(userDTO));
     }
 
     @Override
     public List<UserDTO> getAll() {
-        List<User> users = repository.findAll();
-        return users.stream()
+        return repository.findAll()
+                .stream()
                 .map(UserDtoToUser::convertToUserDTO)
                 .collect(Collectors.toList());
     }

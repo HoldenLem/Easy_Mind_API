@@ -1,9 +1,9 @@
-package easy.mind.com.api.Srvice.Impl;
+package easy.mind.com.api.service.Impl;
 
-import easy.mind.com.api.Entity.BeckDepressionInventory;
-import easy.mind.com.api.Entity.User;
-import easy.mind.com.api.Repository.BeckDepressionInventoryRepository;
-import easy.mind.com.api.Srvice.BeckDepressionInventoryService;
+import easy.mind.com.api.entity.BeckDepressionInventory;
+import easy.mind.com.api.entity.User;
+import easy.mind.com.api.repository.BeckDepressionInventoryRepository;
+import easy.mind.com.api.service.BeckDepressionInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
