@@ -34,7 +34,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok()
-                .body(userService.create(userDTO));
+                .body(userService.update(userDTO));
     }
 
     @DeleteMapping("/{id}")

@@ -29,6 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public UserDTO update(UserDTO userDTO) {
+        return create(userDTO);
+    }
+
+
+    @Override
     public UserDTO readById(long id) {
         User user = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
