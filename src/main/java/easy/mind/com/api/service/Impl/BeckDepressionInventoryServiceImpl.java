@@ -1,36 +1,47 @@
 package easy.mind.com.api.service.Impl;
 
+import easy.mind.com.api.DTO.BeckDepressionInventoryDTO;
+import easy.mind.com.api.DTO.UserDTO;
+import easy.mind.com.api.DTO.conversion.BeckDepressionToDTO;
+import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.entity.BeckDepressionInventory;
-import easy.mind.com.api.entity.User;
 import easy.mind.com.api.repository.BeckDepressionInventoryRepository;
 import easy.mind.com.api.service.BeckDepressionInventoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import easy.mind.com.api.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class BeckDepressionInventoryServiceImpl implements BeckDepressionInventoryService {
 
-    private BeckDepressionInventoryRepository repository;
+    private final BeckDepressionInventoryRepository repository;
 
-    @Autowired
-    public BeckDepressionInventoryServiceImpl(BeckDepressionInventoryRepository repository) {
-        this.repository = repository;
+    private final UserService userService;
+
+    @Override
+    @Transactional
+    public BeckDepressionInventoryDTO create(BeckDepressionInventoryDTO inventoryDTO, int userId) {
+
+        BeckDepressionInventory inventory = BeckDepressionToDTO.convert(inventoryDTO);
+        UserDTO user = userService.readById(userId);
+        inventory.setUserId(user.getId());
+        BeckDepressionInventory newInventory = repository.save(inventory);
+        return BeckDepressionToDTO.convert(newInventory);
     }
 
     @Override
-    public int getResult(BeckDepressionInventory inventory, User user) {
-
-        inventory.setUserId(user.getId());
-
-        BeckDepressionInventory newInventory = repository.save(inventory);
-
-        int sum = newInventory.getQuestionOne() + newInventory.getQuestionTwo() + newInventory.getQuestionThree() +
-                newInventory.getQuestionFour() + newInventory.getQuestionFive() + newInventory.getQuestionSix() +
-                newInventory.getQuestionSeven() + newInventory.getQuestionEight() + newInventory.getQuestionNine() +
-                newInventory.getQuestionTen() + newInventory.getQuestionEleven() + newInventory.getQuestionTwelve() +
-                newInventory.getQuestionThirteen() + newInventory.getQuestionFourteen() + newInventory.getQuestionFifteen() +
-                newInventory.getQuestionSixteen() + newInventory.getQuestionSeventeen() + newInventory.getQuestionEighteen() +
-                newInventory.getQuestionNineteen() + newInventory.getQuestionTwenty() + newInventory.getQuestionTwentyOne();
-        return sum;
+    public List<BeckDepressionInventoryDTO> getByUserId(int userId) {
+        UserDTO user = userService.readById(userId);
+        return repository.getByUserId(userId)
+                .stream()
+                .map(BeckDepressionToDTO::convert)
+                .toList();
     }
+
 }
