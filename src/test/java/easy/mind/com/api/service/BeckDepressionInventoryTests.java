@@ -5,6 +5,7 @@ import easy.mind.com.api.DTO.conversion.BeckDepressionToDTO;
 import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.entity.BeckDepressionInventory;
 import easy.mind.com.api.entity.User;
+import easy.mind.com.api.facade.TestsFacade;
 import easy.mind.com.api.repository.BeckDepressionInventoryRepository;
 import easy.mind.com.api.service.Impl.BeckDepressionInventoryServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,8 +38,9 @@ public class BeckDepressionInventoryTests {
 
 
     @Test
-    public void createBeckDepressionInventory() {
+    public void create_successfulInventory() {
         // given
+
         User user = createUserForTesting();
 
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
@@ -57,18 +58,18 @@ public class BeckDepressionInventoryTests {
     }
 
     @Test
-    public void createBeckDepressionInventoryWithDefunctUserId() {
+    public void create_withNotExistedUserId() {
         // given
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
         when(userService.readById(3)).thenThrow(new EntityNotFoundException("User with id 3 not found"));
         // when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
-                () -> service.create(BeckDepressionToDTO.convert(expectedInventory),3),
-                "Expected readById() to throw, but it didn't"
+                () -> service.create(BeckDepressionToDTO.convert(expectedInventory), 3),
+                "Expected getByUserId() to throw, but it didn't"
         );
         // then
-        assertTrue(thrown.getMessage().contains("User with id"));
+        assertTrue(thrown.getMessage().contains("User with id 3 not found"));
 
         Mockito.verify(userService).readById(3L);
         Mockito.verify(repository, never()).save(any());
@@ -76,43 +77,46 @@ public class BeckDepressionInventoryTests {
     }
 
     @Test
-    public void getByUserId(){
+    public void get_successfulByUserId() {
 
         // given
         User user = createUserForTesting();
 
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
-        List<BeckDepressionInventory> usersListWithInventories = new ArrayList<>();
-        usersListWithInventories.add(expectedInventory);
-
+        List<BeckDepressionInventory> usersListWithInventories = List.of(expectedInventory);
+        List<BeckDepressionInventoryDTO> usersListWithInventoriesDTO =
+                usersListWithInventories
+                        .stream()
+                        .map(BeckDepressionToDTO::convert)
+                        .toList();
         when(userService.readById(7)).thenReturn(UserDtoToUser.convert(user));
         when(repository.getByUserId(user.getId())).thenReturn(usersListWithInventories);
         //when
         List<BeckDepressionInventoryDTO> actualUsersListWithInventories = service.getByUserId(user.getId());
         //then
-        assertEquals(actualUsersListWithInventories.stream() .map(BeckDepressionToDTO::convert)
-                .toList(), usersListWithInventories,"There no such list");
+        assertEquals(actualUsersListWithInventories, usersListWithInventoriesDTO, "There no such list");
 
         verify(repository).getByUserId(user.getId());
     }
-    @Test
-    public void getByDefunctUserId(){
-        //when
-        when(userService.readById(3)).thenThrow(new EntityNotFoundException("User with id 3 not found"));
 
+    @Test
+    public void get_byNotExistedUserId() {
+        //given
+        when(userService.readById(3)).thenThrow(new EntityNotFoundException("User with id 3 not found"));
+        //when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
                 () -> service.getByUserId(3),
-                "Expected readById() to throw, but it didn't"
+                "Expected getByUserId() to throw, but it didn't"
         );
         //then
-        assertTrue(thrown.getMessage().contains("User with id"));
+        assertTrue(thrown.getMessage().contains("User with id 3 not found"));
 
         Mockito.verify(userService).readById(3L);
         Mockito.verify(repository, never()).getByUserId(3);
     }
 
-    private User createUserForTesting(){
+    private User createUserForTesting() {
         return User.builder()
                 .id(7)
                 .firstName("TestName")
@@ -121,7 +125,8 @@ public class BeckDepressionInventoryTests {
                 .password("testPassword")
                 .build();
     }
-    private BeckDepressionInventory createBeckDepressionInventoryForTesting(){
+
+    private BeckDepressionInventory createBeckDepressionInventoryForTesting() {
         Instant instant = Instant.now();
         return BeckDepressionInventory.builder()
                 .id(1)
