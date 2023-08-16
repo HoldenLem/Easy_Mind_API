@@ -2,9 +2,6 @@
 \c easy_mind;
 
 
---
--- Table structure for table `employee`
---
 
 DROP TABLE IF EXISTS user_table;
 
