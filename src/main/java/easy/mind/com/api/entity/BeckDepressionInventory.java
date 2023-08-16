@@ -1,126 +1,89 @@
 package easy.mind.com.api.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+
 import lombok.*;
 
+
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Table(name = "beck_depression")
-public class BeckDepressionInventory {
+public class BeckDepressionInventory extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id = super.getId();
 
-    @Column(name = "created_ar", nullable = false)
-    private LocalDateTime createdAt;
-
+    private Instant createdAt = super.getCreatedAt();
 
     @Column(name = "question_one", nullable = false)
-    private int questionOne;
+    private int sadness;
 
     @Column(name = "question_two", nullable = false)
-    private int questionTwo;
+    private int concerns;
 
     @Column(name = "question_three", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionThree;
+    private int selfEsteem;
 
     @Column(name = "question_four", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionFour;
+    private int pleasure;
 
     @Column(name = "question_five", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionFive;
+    private int fault;
 
     @Column(name = "question_six", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionSix;
+    private int punishment;
 
     @Column(name = "question_seven", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionSeven;
+    private int selfLove;
 
     @Column(name = "question_eight", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionEight;
+    private int selfCriticism;
 
-    @Column(name = "question_nane", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionNine;
+    @Column(name = "question_nine", nullable = false)
+    private int suicide;
 
     @Column(name = "question_ten", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionTen;
+    private int weep;
 
     @Column(name = "question_eleven", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionEleven;
+    private int irritability;
 
     @Column(name = "question_twelve", nullable = false)
-
-    private int questionTwelve;
+    private int interestInPeople;
 
     @Column(name = "question_thirteen", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionThirteen;
+    private int determination;
 
     @Column(name = "question_fourteen", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionFourteen;
+    private int appearance;
 
     @Column(name = "question_fifteen", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionFifteen;
+    private int workAbility;
 
     @Column(name = "question_sixteen")
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionSixteen;
+    private int sleep;
 
     @Column(name = "question_seventeen", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionSeventeen;
+    private int fatigue;
 
     @Column(name = "question_eighteen", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionEighteen;
+    private int appetite;
 
     @Column(name = "question_nineteen", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 5, message = "The value cannot be higher than 5")
-    private int questionNineteen;
+    private int weight;
 
     @Column(name = "question_twenty", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionTwenty;
+    private int heals;
 
     @Column(name = "question_twenty_one", nullable = false)
-    @Min(value = 0, message = "The value cannot be lower than 0")
-    @Max(value = 3, message = "The value cannot be higher than 3")
-    private int questionTwentyOne;
+    private int libido;
 
     @Column(name = "user_id", nullable = false)
     private int userId;
