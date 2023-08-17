@@ -1,9 +1,14 @@
 package easy.mind.com.api.service;
 
-import easy.mind.com.api.entity.BeckDepressionInventory;
-import easy.mind.com.api.entity.User;
+import easy.mind.com.api.DTO.BeckDepressionInventoryDTO;
+
+
+import java.util.List;
 
 public interface BeckDepressionInventoryService {
 
-    int getResult(BeckDepressionInventory inventory, User user);
+    BeckDepressionInventoryDTO create(int userId, BeckDepressionInventoryDTO inventoryDTO);
+
+    List<BeckDepressionInventoryDTO> getByUserId(int userId);
+
 }

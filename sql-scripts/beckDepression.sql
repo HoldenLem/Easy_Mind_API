@@ -2,12 +2,6 @@ CREATE DATABASE  easy_mind;
 \c easy_mind;
 
 
---
--- Table structure for table `employee`
---
-
-DROP TABLE IF EXISTS beck_depression;
-
 CREATE TABLE beck_depression (
   id SERIAL PRIMARY KEY NOT NULL,
   created_at TIMESTAMP  NOT NULL,

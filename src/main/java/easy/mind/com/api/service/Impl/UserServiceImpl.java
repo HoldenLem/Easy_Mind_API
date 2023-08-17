@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDTO create(UserDTO userDTO) {
-        User user = UserDtoToUser.convertToUser(userDTO);
+        User user = UserDtoToUser.convert(userDTO);
         User createdUser = repository.save(user);
-        return UserDtoToUser.convertToUserDTO(createdUser);
+        return UserDtoToUser.convert(createdUser);
     }
 
     @Override
@@ -37,23 +37,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO readById(long id) {
-        User user = repository.findById(id)
+        return repository.findById(id)
+                .map(UserDtoToUser::convert)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
-        return UserDtoToUser.convertToUserDTO(user);
+
     }
 
     @Override
     @Transactional
     public void delete(long id) {
         UserDTO userDTO = readById(id);
-        repository.delete(UserDtoToUser.convertToUser(userDTO));
+        repository.delete(UserDtoToUser.convert(userDTO));
     }
 
     @Override
     public List<UserDTO> getAll() {
         return repository.findAll()
                 .stream()
-                .map(UserDtoToUser::convertToUserDTO)
+                .map(UserDtoToUser::convert)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void throwIfNotExist(long id) {
+        repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 }
