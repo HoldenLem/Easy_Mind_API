@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BeckDepressionInventoryService {
 
-    BeckDepressionInventoryDTO create(BeckDepressionInventoryDTO inventoryDTO, int userId);
+    BeckDepressionInventoryDTO create(int userId, BeckDepressionInventoryDTO inventoryDTO);
 
     List<BeckDepressionInventoryDTO> getByUserId(int userId);
 
