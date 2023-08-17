@@ -3,50 +3,43 @@ package easy.mind.com.api.entity;
 import jakarta.persistence.*;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-
-import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@SuperBuilder
 
 @Entity
 @Table(name = "beck_depression")
 public class BeckDepressionInventory extends BaseEntity {
 
-    private int id = super.getId();
-
-    private Instant createdAt = super.getCreatedAt();
-
-    @Column(name = "question_one", nullable = false)
+    @Column(name = "sadness", nullable = false)
     private int sadness;
 
-    @Column(name = "question_two", nullable = false)
+    @Column(name = "concerns", nullable = false)
     private int concerns;
 
-    @Column(name = "question_three", nullable = false)
+    @Column(name = "selfEsteem", nullable = false)
     private int selfEsteem;
 
-    @Column(name = "question_four", nullable = false)
+    @Column(name = "pleasure", nullable = false)
     private int pleasure;
 
-    @Column(name = "question_five", nullable = false)
+    @Column(name = "fault", nullable = false)
     private int fault;
 
-    @Column(name = "question_six", nullable = false)
+    @Column(name = "punishment", nullable = false)
     private int punishment;
 
-    @Column(name = "question_seven", nullable = false)
+    @Column(name = "selfLove", nullable = false)
     private int selfLove;
 
-    @Column(name = "question_eight", nullable = false)
+    @Column(name = "selfCriticism", nullable = false)
     private int selfCriticism;
 
-    @Column(name = "question_nine", nullable = false)
+    @Column(name = "suicide", nullable = false)
     private int suicide;
 
     @Column(name = "question_ten", nullable = false)
@@ -55,34 +48,34 @@ public class BeckDepressionInventory extends BaseEntity {
     @Column(name = "question_eleven", nullable = false)
     private int irritability;
 
-    @Column(name = "question_twelve", nullable = false)
+    @Column(name = "interestInPeople", nullable = false)
     private int interestInPeople;
 
-    @Column(name = "question_thirteen", nullable = false)
+    @Column(name = "determination", nullable = false)
     private int determination;
 
-    @Column(name = "question_fourteen", nullable = false)
+    @Column(name = "appearance", nullable = false)
     private int appearance;
 
-    @Column(name = "question_fifteen", nullable = false)
+    @Column(name = "workAbility", nullable = false)
     private int workAbility;
 
-    @Column(name = "question_sixteen")
+    @Column(name = "sleep")
     private int sleep;
 
-    @Column(name = "question_seventeen", nullable = false)
+    @Column(name = "fatigue", nullable = false)
     private int fatigue;
 
-    @Column(name = "question_eighteen", nullable = false)
+    @Column(name = "appetite", nullable = false)
     private int appetite;
 
-    @Column(name = "question_nineteen", nullable = false)
+    @Column(name = "weight", nullable = false)
     private int weight;
 
-    @Column(name = "question_twenty", nullable = false)
+    @Column(name = "heals", nullable = false)
     private int heals;
 
-    @Column(name = "question_twenty_one", nullable = false)
+    @Column(name = "libido", nullable = false)
     private int libido;
 
     @Column(name = "user_id", nullable = false)

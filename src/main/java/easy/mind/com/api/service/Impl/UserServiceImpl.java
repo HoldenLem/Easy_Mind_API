@@ -37,9 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO readById(long id) {
-        User user = repository.findById(id)
+        return repository.findById(id)
+                .map(UserDtoToUser::convert)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
-        return UserDtoToUser.convert(user);
+
     }
 
     @Override
@@ -55,5 +56,10 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(UserDtoToUser::convert)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean throwIfNotExist(long id) {
+        return readById(id) == null;
     }
 }
