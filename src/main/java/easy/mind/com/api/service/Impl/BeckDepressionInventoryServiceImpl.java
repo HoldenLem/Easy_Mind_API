@@ -3,7 +3,6 @@ package easy.mind.com.api.service.Impl;
 import easy.mind.com.api.DTO.BeckDepressionInventoryDTO;
 import easy.mind.com.api.DTO.UserDTO;
 import easy.mind.com.api.DTO.conversion.BeckDepressionToDTO;
-import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.entity.BeckDepressionInventory;
 import easy.mind.com.api.repository.BeckDepressionInventoryRepository;
 import easy.mind.com.api.service.BeckDepressionInventoryService;
@@ -26,7 +25,7 @@ public class BeckDepressionInventoryServiceImpl implements BeckDepressionInvento
 
     @Override
     @Transactional
-    public BeckDepressionInventoryDTO create(BeckDepressionInventoryDTO inventoryDTO, int userId) {
+    public BeckDepressionInventoryDTO create(int userId, BeckDepressionInventoryDTO inventoryDTO) {
 
         BeckDepressionInventory inventory = BeckDepressionToDTO.convert(inventoryDTO);
         UserDTO user = userService.readById(userId);
@@ -37,7 +36,9 @@ public class BeckDepressionInventoryServiceImpl implements BeckDepressionInvento
 
     @Override
     public List<BeckDepressionInventoryDTO> getByUserId(int userId) {
-        UserDTO user = userService.readById(userId);
+        if (userService.throwIfNotExist(userId)) {
+            throw new EntityNotFoundException("User with id " + userId + " not found");
+        }
         return repository.getByUserId(userId)
                 .stream()
                 .map(BeckDepressionToDTO::convert)
