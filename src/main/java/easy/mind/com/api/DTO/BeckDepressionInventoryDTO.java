@@ -13,10 +13,12 @@ import java.time.Instant;
 @AllArgsConstructor
 public class BeckDepressionInventoryDTO {
 
-
     private Instant createdAt;
 
     private int id;
+
+    @NotNull(message = "cannot be null")
+    private int userId;
 
     @TestAnswerValidation
     private int sadness;
@@ -81,6 +83,4 @@ public class BeckDepressionInventoryDTO {
     @TestAnswerValidation
     private int libido;
 
-    @NotNull(message = "cannot be null")
-    private int userId;
 }

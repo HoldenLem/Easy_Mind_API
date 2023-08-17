@@ -28,6 +28,7 @@ public class BeckDepressionInventoryServiceImpl implements BeckDepressionInvento
     public BeckDepressionInventoryDTO create(int userId, BeckDepressionInventoryDTO inventoryDTO) {
 
         BeckDepressionInventory inventory = BeckDepressionToDTO.convert(inventoryDTO);
+        userService.throwIfNotExist(userId);
         UserDTO user = userService.readById(userId);
         inventory.setUserId(user.getId());
         BeckDepressionInventory newInventory = repository.save(inventory);
@@ -36,9 +37,7 @@ public class BeckDepressionInventoryServiceImpl implements BeckDepressionInvento
 
     @Override
     public List<BeckDepressionInventoryDTO> getByUserId(int userId) {
-        if (userService.throwIfNotExist(userId)) {
-            throw new EntityNotFoundException("User with id " + userId + " not found");
-        }
+        userService.throwIfNotExist(userId);
         return repository.getByUserId(userId)
                 .stream()
                 .map(BeckDepressionToDTO::convert)

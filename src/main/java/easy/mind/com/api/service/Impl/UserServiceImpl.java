@@ -59,7 +59,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean throwIfNotExist(long id) {
-        return readById(id) == null;
+    public void throwIfNotExist(long id) {
+        repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 }

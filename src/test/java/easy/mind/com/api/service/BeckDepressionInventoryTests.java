@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Stream;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,17 +39,15 @@ public class BeckDepressionInventoryTests {
     public void create_successfulInventory() {
         // given
         User user = createUserForTesting();
-
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
         BeckDepressionInventory expectedInventoryForReturn = createBeckDepressionInventoryForTesting();
-
         when(repository.save(expectedInventory)).thenReturn(expectedInventoryForReturn);
         when(userService.readById(user.getId())).thenReturn(UserDtoToUser.convert(user));
+
         //when
         BeckDepressionInventoryDTO actualInventory = service.create(7, BeckDepressionToDTO.convert(expectedInventory));
         //then
         assertEquals(BeckDepressionToDTO.convert(expectedInventoryForReturn), actualInventory, "Inventory is not created");
-
         verify(repository).save(expectedInventory);
     }
 
@@ -59,15 +56,16 @@ public class BeckDepressionInventoryTests {
         // given
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
         when(userService.readById(3)).thenThrow(new EntityNotFoundException("User with id 3 not found"));
+
         // when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
                 () -> service.create(3, BeckDepressionToDTO.convert(expectedInventory)),
                 "Expected getByUserId() to throw, but it didn't"
         );
+
         // then
         assertTrue(thrown.getMessage().contains("User with id 3 not found"));
-
         verify(userService).readById(3L);
         verify(repository, never()).save(any());
 
@@ -77,32 +75,29 @@ public class BeckDepressionInventoryTests {
     public void get_successfulByUserId() {
         // given
         User user = createUserForTesting();
-
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
-        List<BeckDepressionInventoryDTO> usersListWithInventoriesDTO =
-                Stream.of(expectedInventory)
-                        .map(BeckDepressionToDTO::convert)
-                        .toList();
-        when(userService.throwIfNotExist(7)).thenReturn(false);
         when(repository.getByUserId(user.getId())).thenReturn(List.of(expectedInventory));
+
         //when
         List<BeckDepressionInventoryDTO> actualUsersListWithInventories = service.getByUserId(user.getId());
-        //then
-        assertEquals(actualUsersListWithInventories, usersListWithInventoriesDTO, "There no such list");
 
+        //then
+        assertEquals(actualUsersListWithInventories, List.of(BeckDepressionToDTO.convert(expectedInventory)), "There no such list");
         verify(repository).getByUserId(user.getId());
     }
 
     @Test
     public void get_byNotExistedUserId() {
         //given
-        when(userService.throwIfNotExist(7)).thenReturn(true);
+        doThrow(new EntityNotFoundException("User with id 7 not found")).when(userService).throwIfNotExist(7);
+
         //when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
                 () -> service.getByUserId(7),
                 "Expected getByUserId() to throw, but it didn't"
         );
+
         //then
         assertTrue(thrown.getMessage().contains("User with id 7 not found"));
 

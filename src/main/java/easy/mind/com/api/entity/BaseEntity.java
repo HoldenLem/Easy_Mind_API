@@ -13,15 +13,14 @@ import java.io.Serializable;
 import java.time.Instant;
 
 @Data
+@SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 public abstract class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EmbeddedId
     protected int id;
 
     @CreationTimestamp

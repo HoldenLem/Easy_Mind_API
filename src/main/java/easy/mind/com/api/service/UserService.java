@@ -11,5 +11,5 @@ public interface UserService {
     UserDTO readById(long id);
     void delete(long id);
     List<UserDTO> getAll();
-    boolean throwIfNotExist(long id);
+    void throwIfNotExist(long id);
 }

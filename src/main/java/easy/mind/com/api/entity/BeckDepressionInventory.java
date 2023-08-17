@@ -15,6 +15,9 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "beck_depression")
 public class BeckDepressionInventory extends BaseEntity {
 
+    @Column(name = "user_id", nullable = false)
+    private int userId;
+
     @Column(name = "sadness", nullable = false)
     private int sadness;
 
@@ -78,7 +81,5 @@ public class BeckDepressionInventory extends BaseEntity {
     @Column(name = "libido", nullable = false)
     private int libido;
 
-    @Column(name = "user_id", nullable = false)
-    private int userId;
 
 }
