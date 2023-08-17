@@ -1,9 +1,6 @@
 package easy.mind.com.api.DTO;
 
-import easy.mind.com.api.DTO.annotation.SpectrumValidation;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import easy.mind.com.api.DTO.annotation.TestAnswerValidation;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,7 +9,7 @@ import java.time.Instant;
 
 @Data
 @Builder
-@NoArgsConstructor()
+@NoArgsConstructor
 @AllArgsConstructor
 public class BeckDepressionInventoryDTO {
 
@@ -21,67 +18,67 @@ public class BeckDepressionInventoryDTO {
 
     private int id;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int sadness;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int concerns;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int selfEsteem;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int pleasure;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int fault;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int punishment;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int selfLove;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int selfCriticism;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int suicide;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int weep;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int irritability;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int interestInPeople;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int determination;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int appearance;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int workAbility;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int sleep;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int fatigue;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int appetite;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int weight;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int heals;
 
-    @SpectrumValidation
+    @TestAnswerValidation
     private int libido;
 
     @NotNull(message = "cannot be null")

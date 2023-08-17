@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 @NotNull(message = "cannot be null")
 @Min(value = 0, message = "The value cannot be lower than 0")
 @Max(value = 3, message = "The value cannot be higher than 3")
-public @interface  SpectrumValidation {
+public @interface TestAnswerValidation{
 }
