@@ -26,11 +26,9 @@ public class BeckDepressionInventoryServiceImpl implements BeckDepressionInvento
     @Override
     @Transactional
     public BeckDepressionInventoryDTO create(int userId, BeckDepressionInventoryDTO inventoryDTO) {
-
-        BeckDepressionInventory inventory = BeckDepressionToDTO.convert(inventoryDTO);
         userService.throwIfNotExist(userId);
-        UserDTO user = userService.readById(userId);
-        inventory.setUserId(user.getId());
+        inventoryDTO.setUserId(userId);
+        BeckDepressionInventory inventory = BeckDepressionToDTO.convert(inventoryDTO);
         BeckDepressionInventory newInventory = repository.save(inventory);
         return BeckDepressionToDTO.convert(newInventory);
     }
