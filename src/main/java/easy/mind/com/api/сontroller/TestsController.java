@@ -22,7 +22,7 @@ public class TestsController {
             @Valid @RequestBody BeckDepressionInventoryDTO beckDepression,
             @PathVariable int userId) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(beckDepressionService.create(beckDepression, userId));
+                .body(beckDepressionService.create(userId, beckDepression));
     }
 
     @GetMapping("/depressions")
