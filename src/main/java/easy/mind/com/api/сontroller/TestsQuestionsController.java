@@ -2,6 +2,7 @@ package easy.mind.com.api.сontroller;
 
 import easy.mind.com.api.DTO.TestsQuestionsDTO;
 import easy.mind.com.api.entity.TestsQuestions;
+import easy.mind.com.api.facade.TestsQuestionsFacade;
 import easy.mind.com.api.service.TestsQuestionsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,29 +16,16 @@ import java.util.List;
 @RequestMapping("/users/{userId}/questions")
 @RequiredArgsConstructor
 public class TestsQuestionsController {
-
-    private final TestsQuestionsService testsQuestionsService;
-
-    @PostMapping
-    public ResponseEntity<TestsQuestionsDTO> createQuestions(@Valid @RequestBody TestsQuestionsDTO testsQuestionsDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(testsQuestionsService.create(testsQuestionsDTO));
-    }
+    private final TestsQuestionsFacade testsQuestionsFacade;
 
     @GetMapping("/{id}")
     public ResponseEntity<TestsQuestionsDTO> read(@PathVariable int id,  @PathVariable int userId) {
         return ResponseEntity.ok()
-                .body(testsQuestionsService.readById(id,userId));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<TestsQuestions> deleteUser(@PathVariable int id, @PathVariable int userId) {
-        testsQuestionsService.delete(id,userId);
-        return ResponseEntity.noContent().build();
+                .body(testsQuestionsFacade.getById(id));
     }
 
     @GetMapping
-    private ResponseEntity<List<TestsQuestionsDTO>> getAllUsers() {
-        return ResponseEntity.ok().body(testsQuestionsService.getAll());
+    private ResponseEntity<List<TestsQuestionsDTO>> getAllQuestions() {
+        return ResponseEntity.ok().body(testsQuestionsFacade.getAll());
     }
 }
