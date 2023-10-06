@@ -1,12 +1,13 @@
 package easy.mind.com.api.entity;
 
+import easy.mind.com.api.DTO.TestsQuestionsDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
+import java.util.List;
+import java.util.Map;
 
 
 @Data
@@ -30,5 +31,24 @@ public class TestsQuestions {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
-    private String questions;
+    private List<Question> questions;
+
+    @Builder
+    public record Question(int order,String description, Map<Integer, String> answers) {
+
+        @Override
+        public int order() {
+            return order;
+        }
+
+        @Override
+        public String description() {
+            return description;
+        }
+
+        @Override
+        public Map<Integer, String> answers() {
+            return answers;
+        }
+    }
 }
