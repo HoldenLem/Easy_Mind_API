@@ -29,19 +29,6 @@ public class TestsQuestionsDTO {
 
     @Builder
     public record QuestionDTO(int order,String description, Map<Integer, String> answers) {
-        @Override
-        public int order() {
-            return order;
-        }
 
-        @Override
-        public String description() {
-            return description;
-        }
-
-        @Override
-        public Map<Integer, String> answers() {
-            return answers;
-        }
     }
 }
