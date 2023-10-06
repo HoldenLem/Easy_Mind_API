@@ -36,19 +36,6 @@ public class TestsQuestions {
     @Builder
     public record Question(int order,String description, Map<Integer, String> answers) {
 
-        @Override
-        public int order() {
-            return order;
-        }
 
-        @Override
-        public String description() {
-            return description;
-        }
-
-        @Override
-        public Map<Integer, String> answers() {
-            return answers;
-        }
     }
 }
