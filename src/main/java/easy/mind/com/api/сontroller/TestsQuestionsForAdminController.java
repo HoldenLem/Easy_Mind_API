@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/questions")
 @RequiredArgsConstructor
@@ -21,9 +23,14 @@ public class TestsQuestionsForAdminController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<TestsQuestionsDTO> deleteQuestion(@PathVariable int id, @PathVariable int userId) {
+    public ResponseEntity<TestsQuestionsDTO> deleteQuestion(@PathVariable int id) {
         testsQuestionsFacade.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    private ResponseEntity<List<TestsQuestionsDTO>> getAllQuestions() {
+        return ResponseEntity.ok().body(testsQuestionsFacade.getAll());
     }
 
 }

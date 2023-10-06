@@ -24,8 +24,4 @@ public class TestsQuestionsController {
                 .body(testsQuestionsFacade.getById(id));
     }
 
-    @GetMapping
-    private ResponseEntity<List<TestsQuestionsDTO>> getAllQuestions() {
-        return ResponseEntity.ok().body(testsQuestionsFacade.getAll());
-    }
 }
