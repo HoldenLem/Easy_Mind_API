@@ -45,10 +45,10 @@ public class BeckDepressionInventory extends BaseEntity {
     @Column(name = "suicide", nullable = false)
     private int suicide;
 
-    @Column(name = "question_ten", nullable = false)
+    @Column(name = "weep", nullable = false)
     private int weep;
 
-    @Column(name = "question_eleven", nullable = false)
+    @Column(name = "irritability", nullable = false)
     private int irritability;
 
     @Column(name = "interestInPeople", nullable = false)
