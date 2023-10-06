@@ -23,36 +23,25 @@ public class TestsQuestionsServiceImpl implements TestsQuestionsService {
 
     private final TestsQuestionsRepository repository;
 
-    private final TestsFacade testsFacade;
-
     @Override
     @Transactional
-    public TestsQuestionsDTO create(TestsQuestionsDTO questionsDTO) {
-        TestsQuestions createdTestQuestion = repository.save(TestQuestionsToDto.convert(questionsDTO));
-        return TestQuestionsToDto.convert(createdTestQuestion);
+    public TestsQuestions create(TestsQuestions questions) {
+        return repository.save(questions);
     }
 
     @Override
-    public TestsQuestionsDTO readById(long id, int userId) {
-        if (testsFacade.hasExceededRateLimit(userId)) {
-            throw new RateLimitExceededException("You can pass test only once a day");
-        }
-        TestsQuestions testsQuestions = repository.findById(id)
+    public TestsQuestions getById(long id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Questions with id " + id + " not found"));
-        return TestQuestionsToDto.convert(testsQuestions);
     }
 
     @Override
-    public void delete(long id, int userId) {
-        TestsQuestionsDTO testsQuestionsDTO = readById(id, userId);
-        repository.delete(TestQuestionsToDto.convert(testsQuestionsDTO));
+    public void delete(long id) {
+        repository.delete(getById(id));
     }
 
     @Override
-    public List<TestsQuestionsDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(TestQuestionsToDto::convert)
-                .collect(Collectors.toList());
+    public List<TestsQuestions> getAll() {
+        return repository.findAll();
     }
 }
