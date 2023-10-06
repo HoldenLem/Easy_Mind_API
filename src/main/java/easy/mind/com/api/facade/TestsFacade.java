@@ -18,7 +18,7 @@ public class TestsFacade {
    private final BeckDepressionInventoryRepository repository;
 
 
-    public  boolean hasExceededRateLimit(int userId){
+    public boolean hasExceededRateLimit(int userId){
         return repository.findTopByUserIdOrderByCreatedAtDesc(userId)
                 .map(BeckDepressionInventory::getCreatedAt)
                 .map(x -> x.isAfter(Instant.now().minus(24, ChronoUnit.HOURS)))
