@@ -1,9 +1,9 @@
 package easy.mind.com.api.service;
 
 import easy.mind.com.api.DTO.TestsQuestionsDTO;
-import easy.mind.com.api.DTO.conversion.BeckDepressionToDTO;
 import easy.mind.com.api.DTO.conversion.TestQuestionsToDto;
 import easy.mind.com.api.entity.TestsQuestions;
+import easy.mind.com.api.entity.TestsQuestions.Question;
 import easy.mind.com.api.exception.RateLimitExceededException;
 import easy.mind.com.api.facade.TestsFacade;
 import easy.mind.com.api.repository.TestsQuestionsRepository;
@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -30,91 +29,65 @@ public class TestsQuestionsServiceImplTest {
 
     @Mock
     private TestsQuestionsRepository repository;
-
-    @Mock
-    private TestsFacade testsFacade;
-
     @InjectMocks
     private TestsQuestionsServiceImpl service;
 
     @Test
     public void create_successTestsQuestions() {
         //given
-        TestsQuestionsDTO expectedTestsQuestionsDTO = createTestsQuestionsDTOForTesting();
-        TestsQuestionsDTO expectedTestsQuestionsForReturnDTO = createTestsQuestionsDTOForTesting();
-        Mockito.when(repository.save(TestQuestionsToDto.convert(expectedTestsQuestionsDTO))).thenReturn(TestQuestionsToDto.convert(expectedTestsQuestionsForReturnDTO));
+        TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
+        TestsQuestions expectedTestsQuestionsForReturn = createTestsQuestionsForTesting();
+        Mockito.when(repository.save(expectedTestsQuestions)).thenReturn(expectedTestsQuestionsForReturn);
 
         //when
-        TestsQuestionsDTO actualTestsQuestions = service.create(expectedTestsQuestionsDTO);
+        TestsQuestions actualTestsQuestions = service.create(expectedTestsQuestions);
 
         //then
-        assertEquals(actualTestsQuestions, expectedTestsQuestionsForReturnDTO);
-        verify(repository).save(TestQuestionsToDto.convert(expectedTestsQuestionsDTO));
+        assertEquals(actualTestsQuestions, expectedTestsQuestionsForReturn);
+        verify(repository).save(expectedTestsQuestions);
     }
 
     @Test
     public void get_successTestsQuestionById() {
         //given
-        Mockito.when(testsFacade.hasExceededRateLimit(1)).thenReturn(false);
-        TestsQuestionsDTO expectedTestsQuestionsDTO = createTestsQuestionsDTOForTesting();
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.ofNullable(TestQuestionsToDto.convert(expectedTestsQuestionsDTO)));
+        TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.ofNullable(expectedTestsQuestions));
 
         //when
-        TestsQuestionsDTO actualTestsQuestionsDTO = service.readById(1, 1);
+        TestsQuestions actualTestsQuestions = service.getById(1);
 
         //then
-        assertEquals(actualTestsQuestionsDTO, expectedTestsQuestionsDTO, "Test questions not exist");
-        verify(testsFacade).hasExceededRateLimit(1);
+        assertEquals(actualTestsQuestions, expectedTestsQuestions, "Test questions not exist");
         verify(repository).findById(1L);
-    }
-
-    @Test
-    public void get_withWrongTimeLimit() {
-        //given
-        Mockito.when(testsFacade.hasExceededRateLimit(1)).thenThrow(new RateLimitExceededException("You can pass test only once a day"));
-
-        //when
-        RateLimitExceededException thrown = assertThrows(
-                RateLimitExceededException.class,
-                () -> service.readById(1, 1),
-                "Expected findById() to throw, but it didn't"
-        );
-        // then
-        assertTrue(thrown.getMessage().contains("You can pass test only once a day"));
-        //then
-        verify(testsFacade).hasExceededRateLimit(1);
-        verify(repository, never()).findById(any());
     }
 
     @Test
     public void get_byNotExistedId() {
         //given
-        Mockito.when(testsFacade.hasExceededRateLimit(1)).thenReturn(false);
         Mockito.when(repository.findById(1L)).thenThrow(new EntityNotFoundException("Questions with id 1 not found"));
 
         //when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
-                () -> service.readById(1, 1),
+                () -> service.getById(1),
                 "Expected findById() to throw, but it didn't"
         );
         //then
         assertTrue(thrown.getMessage().contains("Questions with id 1 not found"));
-        verify(testsFacade).hasExceededRateLimit(1);
     }
 
     @Test
     public void delete_successful() {
         //given
-        TestsQuestionsDTO expectedTestsQuestionsDTO = createTestsQuestionsDTOForTesting();
-        when(repository.findById(1L)).thenReturn(Optional.ofNullable(TestQuestionsToDto.convert(expectedTestsQuestionsDTO)));
+        TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
+        when(repository.findById(1L)).thenReturn(Optional.ofNullable(expectedTestsQuestions));
 
         // when
-        service.delete(1, 1);
+        service.delete(1);
 
         // then
         verify(repository).findById(1L);
-        verify(repository).delete(TestQuestionsToDto.convert(expectedTestsQuestionsDTO));
+        verify(repository).delete(expectedTestsQuestions);
 
     }
 
@@ -126,7 +99,7 @@ public class TestsQuestionsServiceImplTest {
         //when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
-                () -> service.delete(1, 1),
+                () -> service.delete(1),
                 "Expected delete() to throw, but it didn't"
         );
 
@@ -139,22 +112,22 @@ public class TestsQuestionsServiceImplTest {
     @Test
     public void getAll(){
         //given
-        TestsQuestionsDTO expectedTestsQuestionsDTO = createTestsQuestionsDTOForTesting();
-        when(repository.findAll()).thenReturn(List.of(TestQuestionsToDto.convert(expectedTestsQuestionsDTO)));
+        TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
+        when(repository.findAll()).thenReturn(List.of(expectedTestsQuestions));
 
         //when
-        List<TestsQuestionsDTO> actualListForReturn = service.getAll();
+        List<TestsQuestions> actualListForReturn = service.getAll();
 
         //then
-        assertEquals(actualListForReturn, List.of(expectedTestsQuestionsDTO));
+        assertEquals(actualListForReturn, List.of(expectedTestsQuestions));
         verify(repository).findAll();
 
     }
 
-    public TestsQuestionsDTO createTestsQuestionsDTOForTesting(){
-        TestsQuestionsDTO.Question questionForList = new TestsQuestionsDTO.Question(1, new HashMap<>());
+    public TestsQuestions createTestsQuestionsForTesting(){
+        Question questionForList = new Question(1, "testName",new HashMap<>());
 
-        return  TestsQuestionsDTO.builder()
+        return  TestsQuestions.builder()
                 .id(1)
                 .name("testName")
                 .language("UA")
