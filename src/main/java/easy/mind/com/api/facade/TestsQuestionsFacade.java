@@ -16,7 +16,8 @@ public class TestsQuestionsFacade {
     private final TestsQuestionsService service;
 
     public TestsQuestionsDTO create(TestsQuestionsDTO testsQuestionsDTO){
-        return TestQuestionsToDto.convert(service.create(TestQuestionsToDto.convert(testsQuestionsDTO)));
+        TestsQuestionsDTO result =  TestQuestionsToDto.convert(service.create(TestQuestionsToDto.convert(testsQuestionsDTO)));
+        return result;
     }
 
     public TestsQuestionsDTO getById(long id){
