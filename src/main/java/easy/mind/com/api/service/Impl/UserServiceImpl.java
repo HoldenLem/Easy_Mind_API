@@ -1,13 +1,13 @@
 package easy.mind.com.api.service.Impl;
 
 import easy.mind.com.api.DTO.UserDTO;
-import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.entity.User;
 import easy.mind.com.api.repository.UserRepository;
 import easy.mind.com.api.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +19,14 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final ModelMapper modelMapper;
 
     @Override
     @Transactional
     public UserDTO create(UserDTO userDTO) {
-        User user = UserDtoToUser.convert(userDTO);
+        User user = modelMapper.map(userDTO, User.class);
         User createdUser = repository.save(user);
-        return UserDtoToUser.convert(createdUser);
+        return modelMapper.map(createdUser, UserDTO.class);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO readById(long id) {
         return repository.findById(id)
-                .map(UserDtoToUser::convert)
+                .map(user -> modelMapper.map(user, UserDTO.class))
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
 
     }
@@ -47,14 +48,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(long id) {
         UserDTO userDTO = readById(id);
-        repository.delete(UserDtoToUser.convert(userDTO));
+        repository.delete(modelMapper.map(userDTO, User.class));
     }
 
     @Override
     public List<UserDTO> getAll() {
         return repository.findAll()
                 .stream()
-                .map(UserDtoToUser::convert)
+                .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
     }
 

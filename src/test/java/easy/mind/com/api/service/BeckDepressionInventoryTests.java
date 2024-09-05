@@ -1,8 +1,8 @@
 package easy.mind.com.api.service;
 
 import easy.mind.com.api.DTO.BeckDepressionInventoryDTO;
+import easy.mind.com.api.DTO.UserDTO;
 import easy.mind.com.api.DTO.conversion.BeckDepressionToDTO;
-import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.entity.BeckDepressionInventory;
 import easy.mind.com.api.entity.User;
 import easy.mind.com.api.repository.BeckDepressionInventoryRepository;
@@ -13,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.time.Instant;
@@ -34,6 +36,9 @@ public class BeckDepressionInventoryTests {
     @InjectMocks
     private BeckDepressionInventoryServiceImpl service;
 
+    @Autowired
+    ModelMapper modelMapper;
+
 
     @Test
     public void create_successfulInventory() {
@@ -42,7 +47,7 @@ public class BeckDepressionInventoryTests {
         BeckDepressionInventory expectedInventory = createBeckDepressionInventoryForTesting();
         BeckDepressionInventory expectedInventoryForReturn = createBeckDepressionInventoryForTesting();
         when(repository.save(expectedInventory)).thenReturn(expectedInventoryForReturn);
-        when(userService.readById(user.getId())).thenReturn(UserDtoToUser.convert(user));
+        when(userService.readById(user.getId())).thenReturn(modelMapper.map(user, UserDTO.class));
 
         //when
         BeckDepressionInventoryDTO actualInventory = service.create(7, BeckDepressionToDTO.convert(expectedInventory));
