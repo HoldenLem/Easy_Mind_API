@@ -12,7 +12,7 @@ import lombok.*;
 public class UserDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private int id;
+    private long id;
 
     @NotBlank(message = "firstname cannot be blank")
     private String firstName;
