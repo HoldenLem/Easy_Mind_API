@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
 public class UserDTO {
