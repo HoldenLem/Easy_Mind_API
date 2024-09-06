@@ -16,17 +16,14 @@ import java.util.Map;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "tests_questions")
 public class TestsQuestions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
-    @Column(name = "language")
     private String language;
 
-    @Column(name = "name")
     private String name;
 
     @JdbcTypeCode(SqlTypes.JSON)
@@ -35,7 +32,5 @@ public class TestsQuestions {
 
     @Builder
     public record Question(int order,String description, Map<Integer, String> answers) {
-
-
     }
 }
