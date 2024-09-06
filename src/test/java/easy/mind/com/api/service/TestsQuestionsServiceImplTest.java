@@ -1,11 +1,7 @@
 package easy.mind.com.api.service;
 
-import easy.mind.com.api.DTO.TestsQuestionsDTO;
-import easy.mind.com.api.DTO.conversion.TestQuestionsToDto;
 import easy.mind.com.api.entity.TestsQuestions;
 import easy.mind.com.api.entity.TestsQuestions.Question;
-import easy.mind.com.api.exception.RateLimitExceededException;
-import easy.mind.com.api.facade.TestsFacade;
 import easy.mind.com.api.repository.TestsQuestionsRepository;
 import easy.mind.com.api.service.Impl.TestsQuestionsServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
