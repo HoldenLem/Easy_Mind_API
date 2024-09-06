@@ -1,12 +1,6 @@
 package easy.mind.com.api.service.Impl;
 
-import easy.mind.com.api.DTO.TestsQuestionsDTO;
-import easy.mind.com.api.DTO.conversion.TestQuestionsToDto;
-import easy.mind.com.api.DTO.conversion.UserDtoToUser;
 import easy.mind.com.api.entity.TestsQuestions;
-import easy.mind.com.api.entity.User;
-import easy.mind.com.api.exception.RateLimitExceededException;
-import easy.mind.com.api.facade.TestsFacade;
 import easy.mind.com.api.repository.TestsQuestionsRepository;
 import easy.mind.com.api.service.TestsQuestionsService;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
