@@ -1,10 +1,10 @@
 package easy.mind.com.api.facade;
 
 import easy.mind.com.api.DTO.TestsQuestionsDTO;
-import easy.mind.com.api.DTO.conversion.TestQuestionsToDto;
 import easy.mind.com.api.entity.TestsQuestions;
 import easy.mind.com.api.service.TestsQuestionsService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,14 +14,16 @@ import java.util.List;
 public class TestsQuestionsFacade {
 
     private final TestsQuestionsService service;
+    private final ModelMapper modelMapper;
 
     public TestsQuestionsDTO create(TestsQuestionsDTO testsQuestionsDTO){
-        TestsQuestionsDTO result =  TestQuestionsToDto.convert(service.create(TestQuestionsToDto.convert(testsQuestionsDTO)));
-        return result;
+        return modelMapper.map(
+                service.create(modelMapper.map(testsQuestionsDTO, TestsQuestions.class)),
+                TestsQuestionsDTO.class);
     }
 
     public TestsQuestionsDTO getById(long id){
-        return TestQuestionsToDto.convert(service.getById(id));
+        return modelMapper.map(service.getById(id), TestsQuestionsDTO.class);
     }
     public void delete(long id){
          service.delete(id);
@@ -30,7 +32,7 @@ public class TestsQuestionsFacade {
     public List<TestsQuestionsDTO> getAll(){
         return service.getAll()
                 .stream()
-                .map(TestQuestionsToDto::convert)
+                .map(testsQuestions -> modelMapper.map(testsQuestions, TestsQuestionsDTO.class))
                 .toList();
     }
 }
