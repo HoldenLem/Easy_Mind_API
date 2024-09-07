@@ -3,7 +3,6 @@ package easy.mind.com.api.service;
 import easy.mind.com.api.entity.TestsQuestions;
 import easy.mind.com.api.entity.TestsQuestions.Question;
 import easy.mind.com.api.repository.TestsQuestionsRepository;
-import easy.mind.com.api.service.Impl.TestsQuestionsServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
