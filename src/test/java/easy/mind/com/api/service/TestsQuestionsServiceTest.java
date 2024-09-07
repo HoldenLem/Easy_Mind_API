@@ -20,12 +20,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TestsQuestionsServiceImplTest {
+public class TestsQuestionsServiceTest {
 
     @Mock
     private TestsQuestionsRepository repository;
     @InjectMocks
-    private TestsQuestionsServiceImpl service;
+    private TestsQuestionsService service;
 
     @Test
     public void create_successTestsQuestions() {
