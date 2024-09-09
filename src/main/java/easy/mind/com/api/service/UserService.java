@@ -1,12 +1,12 @@
 package easy.mind.com.api.service;
 
 import easy.mind.com.api.DTO.UserDTO;
+import easy.mind.com.api.DTO.mapper.UserMapper;
 import easy.mind.com.api.entity.User;
 import easy.mind.com.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository repository;
-    private final ModelMapper modelMapper;
+    private final UserMapper mapper;
 
     @Transactional
     public UserDTO create(UserDTO userDTO) {
-        User user = modelMapper.map(userDTO, User.class);
+        User user = mapper.userDTOtoUser(userDTO);
         User createdUser = repository.save(user);
-        return modelMapper.map(createdUser, UserDTO.class);
+        return mapper.userToUserDTO(createdUser);
     }
 
     @Transactional
@@ -34,7 +34,7 @@ public class UserService {
 
     public UserDTO readById(long id) {
         return repository.findById(id)
-                .map(user -> modelMapper.map(user, UserDTO.class))
+                .map(mapper::userToUserDTO)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
 
     }
@@ -42,13 +42,13 @@ public class UserService {
     @Transactional
     public void delete(long id) {
         UserDTO userDTO = readById(id);
-        repository.delete(modelMapper.map(userDTO, User.class));
+        repository.delete(mapper.userDTOtoUser(userDTO));
     }
 
     public List<UserDTO> getAll() {
         return repository.findAll()
                 .stream()
-                .map(user -> modelMapper.map(user, UserDTO.class))
+                .map(mapper::userToUserDTO)
                 .collect(Collectors.toList());
     }
 
