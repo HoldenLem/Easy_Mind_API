@@ -1,13 +1,8 @@
 package easy.mind.com.api.service;
 
-import easy.mind.com.api.DTO.TestsQuestionsDTO;
-import easy.mind.com.api.DTO.conversion.TestQuestionsToDto;
 import easy.mind.com.api.entity.TestsQuestions;
 import easy.mind.com.api.entity.TestsQuestions.Question;
-import easy.mind.com.api.exception.RateLimitExceededException;
-import easy.mind.com.api.facade.TestsFacade;
 import easy.mind.com.api.repository.TestsQuestionsRepository;
-import easy.mind.com.api.service.Impl.TestsQuestionsServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,12 +20,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TestsQuestionsServiceImplTest {
+public class TestsQuestionsServiceTest {
 
     @Mock
     private TestsQuestionsRepository repository;
     @InjectMocks
-    private TestsQuestionsServiceImpl service;
+    private TestsQuestionsService service;
 
     @Test
     public void create_successTestsQuestions() {
