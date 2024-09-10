@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @SpringBootTest
@@ -26,7 +25,7 @@ public class TestsQuestionsMapperTests {
                 .questions(List.of(
                         TestsQuestions.Question.builder()
                                 .order(1)
-                                .description("Some description")
+                                .description("some description")
                                 .answers(Map.of(
                                         1, "yes",
                                         2, "no"
@@ -69,5 +68,39 @@ public class TestsQuestionsMapperTests {
                 ))
                 .build();
         assertThat(actualTestsQuestionsDTO).isEqualTo(expectedTestQuestionDTO);
+    }
+
+    @Test
+    public void shouldConvertTestsQuestionsDTOtoTestsQuestions() {
+        TestsQuestionsDTO testsQuestionsDTO = TestsQuestionsDTO.builder()
+                .id(0)
+                .language("German")
+                .name("some name")
+                .questions(List.of(
+                        TestsQuestionsDTO.QuestionDTO.builder()
+                                .order(1)
+                                .description("some description")
+                                .answers(Map.of(
+                                        1, "some answer"
+                                ))
+                                .build()
+                ))
+                .build();
+        TestsQuestions actualTestsQuestions = mapper.testsQuestionsDTOtoTestQuestions(testsQuestionsDTO);
+        TestsQuestions expectedTestsQuestions = TestsQuestions.builder()
+                .id(0)
+                .language("German")
+                .name("some name")
+                .questions(List.of(
+                        TestsQuestions.Question.builder()
+                                .order(1)
+                                .description("some description")
+                                .answers(Map.of(
+                                        1, "some answer"
+                                ))
+                                .build()
+                ))
+                .build();
+        assertThat(actualTestsQuestions).isEqualTo(expectedTestsQuestions);
     }
 }
