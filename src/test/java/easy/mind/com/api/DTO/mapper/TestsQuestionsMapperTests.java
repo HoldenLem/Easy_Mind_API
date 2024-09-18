@@ -14,10 +14,10 @@ import java.util.Map;
 @SpringBootTest
 public class TestsQuestionsMapperTests {
     @Autowired
-    private TestsQuestionsMapper mapper;
+    TestsQuestionsMapper mapper;
 
     @Test
-    public void shouldConvertTestsQuestionsToTestsQuestionsDTO() {
+    void shouldConvertTestsQuestionsToTestsQuestionsDTO() {
         TestsQuestions testsQuestions = TestsQuestions.builder()
                 .id(100)
                 .language("English")
@@ -50,7 +50,7 @@ public class TestsQuestionsMapperTests {
                 .questions(List.of(
                         TestsQuestionsDTO.QuestionDTO.builder()
                                 .order(1)
-                                .description("Some description")
+                                .description("some description")
                                 .answers(Map.of(
                                         1, "yes",
                                         2, "no"
@@ -71,7 +71,7 @@ public class TestsQuestionsMapperTests {
     }
 
     @Test
-    public void shouldConvertTestsQuestionsDTOtoTestsQuestions() {
+    void shouldConvertTestsQuestionsDTOtoTestsQuestions() {
         TestsQuestionsDTO testsQuestionsDTO = TestsQuestionsDTO.builder()
                 .id(0)
                 .language("German")
