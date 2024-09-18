@@ -11,10 +11,10 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 public class UserMapperTests {
     @Autowired
-    private UserMapper mapper;
+    UserMapper mapper;
 
     @Test
-    public void shouldConvertUserToUserDTO() {
+    void shouldConvertUserToUserDTO() {
         User user = User.builder()
                 .id(1)
                 .firstName("Volodymyr")
@@ -34,7 +34,7 @@ public class UserMapperTests {
     }
 
     @Test
-    public void shouldConvertUserDTOtoUser() {
+    void shouldConvertUserDTOtoUser() {
         UserDTO userDTO= UserDTO.builder()
                 .id(0)
                 .firstName("Natalia")
