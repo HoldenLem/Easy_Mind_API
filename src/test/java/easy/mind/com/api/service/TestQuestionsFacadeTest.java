@@ -1,7 +1,7 @@
 package easy.mind.com.api.service;
 
 import easy.mind.com.api.DTO.TestsQuestionsDTO;
-import easy.mind.com.api.DTO.mapper.TestQuestionsMapper;
+import easy.mind.com.api.DTO.mapper.TestsQuestionsMapper;
 import easy.mind.com.api.entity.TestsQuestions;
 import easy.mind.com.api.facade.TestsQuestionsFacade;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class TestQuestionsFacadeTest {
     private TestsQuestionsFacade facade;
 
     @Autowired
-    private TestQuestionsMapper mapper;
+    private TestsQuestionsMapper mapper;
 
     @Test
     public void create_successTestsQuestions() {

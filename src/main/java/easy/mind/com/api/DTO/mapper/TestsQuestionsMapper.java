@@ -5,7 +5,7 @@ import easy.mind.com.api.entity.TestsQuestions;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface TestQuestionsMapper {
+public interface TestsQuestionsMapper {
     TestsQuestionsDTO testsQuestionsToTestsQuestionsDTO(TestsQuestions testsQuestions);
     TestsQuestions testsQuestionsDTOtoTestQuestions(TestsQuestionsDTO testsQuestionsDTO);
 }

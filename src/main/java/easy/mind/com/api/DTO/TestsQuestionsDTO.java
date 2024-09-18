@@ -3,6 +3,8 @@ package easy.mind.com.api.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.util.List;
@@ -27,6 +29,6 @@ public class TestsQuestionsDTO {
     private List<QuestionDTO> questions;
 
     @Builder
-    public record QuestionDTO(int order,String description, Map<Integer, String> answers) {
+    public record QuestionDTO(@Positive int order, @NotBlank String description, @NotEmpty Map<Integer, String> answers) {
     }
 }

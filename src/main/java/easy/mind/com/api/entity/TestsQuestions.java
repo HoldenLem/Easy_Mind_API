@@ -22,12 +22,14 @@ public class TestsQuestions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false)
     private String language;
 
+    @Column(nullable = false)
     private String name;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "jsonb", nullable = false)
     private List<Question> questions;
 
     @Builder
