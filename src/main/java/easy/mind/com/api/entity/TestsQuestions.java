@@ -16,26 +16,23 @@ import java.util.Map;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "tests_questions")
 public class TestsQuestions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
-    @Column(name = "language")
+    @Column(nullable = false)
     private String language;
 
-    @Column(name = "name")
+    @Column(nullable = false)
     private String name;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "jsonb", nullable = false)
     private List<Question> questions;
 
     @Builder
     public record Question(int order,String description, Map<Integer, String> answers) {
-
-
     }
 }
