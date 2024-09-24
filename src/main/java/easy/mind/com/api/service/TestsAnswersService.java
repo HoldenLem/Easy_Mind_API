@@ -1,6 +1,5 @@
 package easy.mind.com.api.service;
 
-import easy.mind.com.api.DTO.BeckDepressionInventoryDTO;
 import easy.mind.com.api.entity.TestsAnswers;
 import easy.mind.com.api.entity.TestsQuestions;
 

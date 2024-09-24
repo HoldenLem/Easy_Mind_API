@@ -1,6 +1,5 @@
 package easy.mind.com.api.repository;
 
-import easy.mind.com.api.entity.BeckDepressionInventory;
 import easy.mind.com.api.entity.TestsAnswers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
