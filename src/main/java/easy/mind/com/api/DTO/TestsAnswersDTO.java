@@ -1,5 +1,6 @@
 package easy.mind.com.api.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -18,23 +19,26 @@ import java.util.Map;
 @AllArgsConstructor
 public class TestsAnswersDTO {
 
-    private int id;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private long id;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant createdAt;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant modifiedAt;
 
     @NotNull(message = "cannot be null")
-    private int questionsId;
+    private long questionsId;
 
     @NotNull(message = "cannot be null")
-    private int userId;
+    private long userId;
 
-    @NotEmpty
-    private List<TestsAnswersDTO.AnswersDTO> answer;
+    @NotEmpty(message = "cannot be null or empty")
+    private List<AnswersDTO> answers;
 
     @Builder
-    public record AnswersDTO(Map<Integer, Integer> answers) {
+    public record AnswersDTO(@NotEmpty Map<Integer, Integer> answers) {
     }
 
 }
