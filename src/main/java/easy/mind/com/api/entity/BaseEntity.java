@@ -24,7 +24,6 @@ public abstract class BaseEntity implements Serializable {
     protected long id;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
     protected Instant createdAt;
 
     @UpdateTimestamp
