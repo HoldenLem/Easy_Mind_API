@@ -26,7 +26,7 @@ public class TestsAnswers extends BaseEntity {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb", nullable = false)
-    private List<Answers> answer;
+    private List<Answers> answers;
 
     @Builder
     public record Answers( Map<Integer, Integer> answers) {
