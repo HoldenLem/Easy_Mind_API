@@ -22,6 +22,8 @@ public class TestsAnswersDTO {
 
     private Instant createdAt;
 
+    private Instant modifiedAt;
+
     @NotNull(message = "cannot be null")
     private int questionsId;
 

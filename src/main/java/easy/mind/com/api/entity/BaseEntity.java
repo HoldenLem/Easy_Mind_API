@@ -21,7 +21,7 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected long id;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
