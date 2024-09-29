@@ -1,8 +1,7 @@
-package easy.mind.com.api.service.Impl;
+package easy.mind.com.api.service;
 
 import easy.mind.com.api.entity.TestsAnswers;
 import easy.mind.com.api.repository.TestsAnswerRepository;
-import easy.mind.com.api.service.TestsAnswersService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

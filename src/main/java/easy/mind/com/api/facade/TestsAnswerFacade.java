@@ -2,7 +2,6 @@ package easy.mind.com.api.facade;
 
 import easy.mind.com.api.DTO.TestsAnswersDTO;
 import easy.mind.com.api.DTO.conversion.TestsAnswerToDTO;
-import easy.mind.com.api.service.TestsAnswersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
