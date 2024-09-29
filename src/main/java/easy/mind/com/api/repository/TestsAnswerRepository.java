@@ -10,5 +10,5 @@ import java.util.List;
 public interface TestsAnswerRepository extends JpaRepository<TestsAnswers, Long> {
 
     List<TestsAnswers> getByUserId(int userId);
-    List<TestsAnswers> getByQuestionsId( int questionsId);
+    List<TestsAnswers> getByTestsId(long testsId);
 }
