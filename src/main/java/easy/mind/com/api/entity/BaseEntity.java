@@ -24,11 +24,10 @@ public abstract class BaseEntity implements Serializable {
     protected int id;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     protected Instant createdAt;
 
     @UpdateTimestamp
-    @Column(name = "modified_at")
     protected Instant modifiedAt;
 
 }
