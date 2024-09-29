@@ -19,16 +19,18 @@ public class TestsQuestionsDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long id;
 
-    @NotBlank(message = "cannot be null")
+    @NotBlank(message = "name cannot be null")
     private String name;
 
-    @NotBlank(message = "cannot be null")
+    @NotBlank(message = "language cannot be null or blank")
     private String language;
 
-    @NotEmpty(message = "cannot be null or empty")
+    @NotEmpty(message = "questions cannot be null or empty")
     private List<QuestionDTO> questions;
 
     @Builder
-    public record QuestionDTO(@Positive int order, @NotBlank String description, @NotEmpty Map<Integer, String> answers) {
+    public record QuestionDTO(@Positive(message = "order cannot be negative") int order,
+                              @NotBlank(message = "descriptions cannot be null or blank") String description,
+                              @NotEmpty(message = "answers cannot be null or empty") Map<Integer, String> answers) {
     }
 }

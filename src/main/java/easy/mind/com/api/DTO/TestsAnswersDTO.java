@@ -28,17 +28,17 @@ public class TestsAnswersDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant modifiedAt;
 
-    @NotNull(message = "cannot be null")
+    @NotNull(message = "questionsID cannot be null")
     private long questionsId;
 
-    @NotNull(message = "cannot be null")
+    @NotNull(message = "userId cannot be null")
     private long userId;
 
-    @NotEmpty(message = "cannot be null or empty")
+    @NotEmpty(message = "answers cannot be null or empty")
     private List<AnswersDTO> answers;
 
     @Builder
-    public record AnswersDTO(@NotEmpty Map<Integer, Integer> answers) {
+    public record AnswersDTO(@NotEmpty(message = "answers cannot be null or empty") Map<Integer, Integer> answers) {
     }
 
 }
