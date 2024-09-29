@@ -10,19 +10,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TestsAnswersServiceImpl implements TestsAnswersService {
+public class TestsAnswersService {
 
     private final TestsAnswerRepository repository;
 
-    @Override
-    public TestsAnswers create(TestsAnswers answers, int userId, int questionId) {
+    public TestsAnswers create(TestsAnswers answers, int userId, int testsId) {
         TestsAnswers testsAnswers = repository.save(answers);
         testsAnswers.setUserId(userId);
-        testsAnswers.setQuestionsId(questionId);
+        testsAnswers.setTestsId(testsId);
         return testsAnswers;
     }
 
-    @Override
     public List<TestsAnswers> getByUserId(int userId) {
         List<TestsAnswers> testsAnswers = repository.getByUserId(userId);
         if (testsAnswers.isEmpty()) {
@@ -31,8 +29,6 @@ public class TestsAnswersServiceImpl implements TestsAnswersService {
         return testsAnswers;
     }
 
-
-    @Override
     public List<TestsAnswers> getAll() {
         return repository.findAll();
     }

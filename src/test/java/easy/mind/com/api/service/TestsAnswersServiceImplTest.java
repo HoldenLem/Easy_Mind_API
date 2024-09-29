@@ -25,7 +25,7 @@ public class TestsAnswersServiceImplTest {
     @Mock
     private TestsAnswerRepository repository;
     @InjectMocks
-    private TestsAnswersServiceImpl service;
+    private TestsAnswersService service;
 
     @Test
     public void create_successTestsAnswers() {
