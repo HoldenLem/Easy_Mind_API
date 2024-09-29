@@ -28,8 +28,8 @@ public class TestsAnswersDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant modifiedAt;
 
-    @NotNull(message = "questionsID cannot be null")
-    private long questionsId;
+    @NotNull(message = "testsId cannot be null")
+    private long testsId;
 
     @NotNull(message = "userId cannot be null")
     private long userId;
