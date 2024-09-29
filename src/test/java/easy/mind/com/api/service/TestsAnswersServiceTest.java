@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TestsAnswersServiceImplTest {
+public class TestsAnswersServiceTest {
 
     @Mock
     private TestsAnswerRepository repository;
@@ -93,9 +93,9 @@ public class TestsAnswersServiceImplTest {
         return  TestsAnswers.builder()
                 .id(1)
                 .createdAt(instant)
-                .questionsId(1)
+                .testsId(1)
                 .userId(1)
-                .answer(List.of(answersForList))
+                .answers(List.of(answersForList))
                 .build();
     }
 
