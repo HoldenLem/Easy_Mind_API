@@ -21,14 +21,12 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    protected long id;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
     protected Instant createdAt;
 
     @UpdateTimestamp
-    @Column(name = "modified_at")
     protected Instant modifiedAt;
 
 }

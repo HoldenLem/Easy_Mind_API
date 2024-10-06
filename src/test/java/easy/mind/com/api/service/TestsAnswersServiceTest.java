@@ -3,7 +3,6 @@ package easy.mind.com.api.service;
 
 import easy.mind.com.api.entity.TestsAnswers;
 import easy.mind.com.api.repository.TestsAnswerRepository;
-import easy.mind.com.api.service.Impl.TestsAnswersServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TestsAnswersServiceImplTest {
+public class TestsAnswersServiceTest {
 
     @Mock
     private TestsAnswerRepository repository;
     @InjectMocks
-    private TestsAnswersServiceImpl service;
+    private TestsAnswersService service;
 
     @Test
     public void create_successTestsAnswers() {
@@ -94,9 +93,9 @@ public class TestsAnswersServiceImplTest {
         return  TestsAnswers.builder()
                 .id(1)
                 .createdAt(instant)
-                .questionsId(1)
+                .testsId(1)
                 .userId(1)
-                .answer(List.of(answersForList))
+                .answers(List.of(answersForList))
                 .build();
     }
 
