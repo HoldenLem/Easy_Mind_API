@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface TestsQuestionsMapper {
-    TestsQuestionsDTO testsQuestionsToTestsQuestionsDTO(TestsQuestions testsQuestions);
-    TestsQuestions testsQuestionsDTOtoTestQuestions(TestsQuestionsDTO testsQuestionsDTO);
+    TestsQuestionsDTO of(TestsQuestions testsQuestions);
+    TestsQuestions of(TestsQuestionsDTO testsQuestionsDTO);
 }

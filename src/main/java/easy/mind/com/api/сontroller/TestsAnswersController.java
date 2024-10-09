@@ -1,8 +1,6 @@
 package easy.mind.com.api.сontroller;
 
 import easy.mind.com.api.DTO.TestsAnswersDTO;
-import easy.mind.com.api.DTO.UserDTO;
-import easy.mind.com.api.entity.TestsAnswers;
 import easy.mind.com.api.facade.TestsAnswerFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,6 @@ public class TestsAnswersController {
 
     @GetMapping
     public ResponseEntity<List<TestsAnswersDTO>> getByUserId (@PathVariable int userId) {
-        return ResponseEntity.ok().body(testsAnswerFacade.getByUserId(userId));
+        return ResponseEntity.ok().body(testsAnswerFacade.getBy(userId));
     }
 }

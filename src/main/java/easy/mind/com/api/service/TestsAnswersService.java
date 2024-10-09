@@ -21,7 +21,7 @@ public class TestsAnswersService {
         return testsAnswers;
     }
 
-    public List<TestsAnswers> getByUserId(int userId) {
+    public List<TestsAnswers> getBy(int userId) {
         List<TestsAnswers> testsAnswers = repository.getByUserId(userId);
         if (testsAnswers.isEmpty()) {
             throw new EntityNotFoundException("The user with id " + userId + " has not passed any test yet");

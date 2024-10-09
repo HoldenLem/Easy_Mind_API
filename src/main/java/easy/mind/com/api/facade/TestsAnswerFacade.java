@@ -16,15 +16,14 @@ public class TestsAnswerFacade {
     private final TestsAnswersMapper mapper;
 
     public TestsAnswersDTO create (TestsAnswersDTO testsAnswersDTO, int userId, int questionId) {
-        TestsAnswersDTO result = mapper.testsAnswersToTestsAnswersDTO(
-                service.create(mapper.testsAnswersDTOtoTestsAnswers(testsAnswersDTO), userId, questionId));
-        return result;
+        return mapper.of(
+                service.create(mapper.of(testsAnswersDTO), userId, questionId));
     }
 
-    public List<TestsAnswersDTO> getByUserId (int userId) {
-        return service.getByUserId(userId)
+    public List<TestsAnswersDTO> getBy(int userId) {
+        return service.getBy(userId)
                 .stream()
-                .map(mapper::testsAnswersToTestsAnswersDTO)
+                .map(mapper::of)
                 .toList();
     }
 }

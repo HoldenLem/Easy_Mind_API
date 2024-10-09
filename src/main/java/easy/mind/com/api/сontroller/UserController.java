@@ -27,11 +27,11 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> read(@PathVariable int userId) {
         return ResponseEntity.ok()
-                .body(userService.readById(userId));
+                .body(userService.readBy(userId));
     }
 
 
-    @PutMapping("/{userId}")
+    @PutMapping
     public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO userDTO) {
         return ResponseEntity.ok()
                 .body(userService.update(userDTO));
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping
-    private ResponseEntity<List<UserDTO>> getAllUsers() {
+    private ResponseEntity<List<UserDTO>> gettAll() {
         return ResponseEntity.ok().body(userService.getAll());
     }
 

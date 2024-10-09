@@ -17,19 +17,19 @@ public class TestsQuestionsForAdminController {
     private final TestsQuestionsFacade testsQuestionsFacade;
 
     @PostMapping
-    public ResponseEntity<TestsQuestionsDTO> createQuestions(@Valid @RequestBody TestsQuestionsDTO testsQuestionsDTO) {
+    public ResponseEntity<TestsQuestionsDTO> create(@Valid @RequestBody TestsQuestionsDTO testsQuestionsDTO) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(testsQuestionsFacade.create(testsQuestionsDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<TestsQuestionsDTO> deleteQuestion(@PathVariable int id) {
+    public ResponseEntity<TestsQuestionsDTO> delete(@PathVariable int id) {
         testsQuestionsFacade.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    private ResponseEntity<List<TestsQuestionsDTO>> getAllQuestions() {
+    private ResponseEntity<List<TestsQuestionsDTO>> getAll() {
         return ResponseEntity.ok().body(testsQuestionsFacade.getAll());
     }
 

@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TestsQuestionsServiceTest {
+class TestsQuestionsServiceTest {
 
     @Mock
     private TestsQuestionsRepository repository;
@@ -28,7 +28,7 @@ public class TestsQuestionsServiceTest {
     private TestsQuestionsService service;
 
     @Test
-    public void create_successTestsQuestions() {
+    void create_successTestsQuestions() {
         //given
         TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
         TestsQuestions expectedTestsQuestionsForReturn = createTestsQuestionsForTesting();
@@ -43,7 +43,7 @@ public class TestsQuestionsServiceTest {
     }
 
     @Test
-    public void get_successTestsQuestionById() {
+    void get_successTestsQuestionById() {
         //given
         TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
         Mockito.when(repository.findById(1L)).thenReturn(Optional.ofNullable(expectedTestsQuestions));
@@ -57,7 +57,7 @@ public class TestsQuestionsServiceTest {
     }
 
     @Test
-    public void get_byNotExistedId() {
+    void get_byNotExistedId() {
         //given
         Mockito.when(repository.findById(1L)).thenThrow(new EntityNotFoundException("Questions with id 1 not found"));
 
@@ -72,7 +72,7 @@ public class TestsQuestionsServiceTest {
     }
 
     @Test
-    public void delete_successful() {
+    void delete_successful() {
         //given
         TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
         when(repository.findById(1L)).thenReturn(Optional.ofNullable(expectedTestsQuestions));
@@ -87,7 +87,7 @@ public class TestsQuestionsServiceTest {
     }
 
     @Test
-    public void delete_notExistingId() {
+    void delete_notExistingId() {
         //given
         when(repository.findById(1L)).thenThrow(new  EntityNotFoundException("Questions with id 1 not found"));
 
@@ -105,7 +105,7 @@ public class TestsQuestionsServiceTest {
     }
 
     @Test
-    public void getAll(){
+    void getAll(){
         //given
         TestsQuestions expectedTestsQuestions = createTestsQuestionsForTesting();
         when(repository.findAll()).thenReturn(List.of(expectedTestsQuestions));

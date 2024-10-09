@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TestsAnswersServiceTest {
+class TestsAnswersServiceTest {
 
     @Mock
     private TestsAnswerRepository repository;
@@ -28,7 +28,7 @@ public class TestsAnswersServiceTest {
     private TestsAnswersService service;
 
     @Test
-    public void create_successTestsAnswers() {
+    void create_success() {
         //given
         TestsAnswers expectedTestsAnswers = createTestsAnswersForTesting();
         TestsAnswers expectedTestsAnswersForReturn = createTestsAnswersForTesting();
@@ -43,13 +43,13 @@ public class TestsAnswersServiceTest {
     }
 
     @Test
-    public void get_successTestsAnswersByUserId() {
+    void get_success() {
         //given
         TestsAnswers expectedTestsAnswers = createTestsAnswersForTesting();
         Mockito.when(repository.getByUserId(1)).thenReturn(List.of(expectedTestsAnswers));
 
         //when
-       List<TestsAnswers> actualTestsAnswers = service.getByUserId(1);
+       List<TestsAnswers> actualTestsAnswers = service.getBy(1);
 
         //then
         assertEquals(actualTestsAnswers, List.of(expectedTestsAnswers), "Test answers not exist");
@@ -57,14 +57,14 @@ public class TestsAnswersServiceTest {
     }
 
     @Test
-    public void get_byNotExistedUserId() {
+    void get_byNotExistedUserId() {
         //given
         Mockito.when(repository.getByUserId(1)).thenThrow(new EntityNotFoundException("The user with id " + 1 + " has not passed any test yet"));
 
         //when
         EntityNotFoundException thrown = assertThrows(
                 EntityNotFoundException.class,
-                () -> service.getByUserId(1),
+                () -> service.getBy(1),
                 "Expected getByUserId() to throw, but it didn't"
         );
         //then
@@ -72,7 +72,7 @@ public class TestsAnswersServiceTest {
     }
 
     @Test
-    public void getAll(){
+     void getAll(){
         //given
         TestsAnswers expectedTestsAnswers = createTestsAnswersForTesting();
         when(repository.findAll()).thenReturn(List.of(expectedTestsAnswers));

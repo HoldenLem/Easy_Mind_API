@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -22,9 +21,9 @@ public class UserService {
 
     @Transactional
     public UserDTO create(UserDTO userDTO) {
-        User user = mapper.userDTOtoUser(userDTO);
+        User user = mapper.of(userDTO);
         User createdUser = repository.save(user);
-        return mapper.userToUserDTO(createdUser);
+        return mapper.of(createdUser);
     }
 
     @Transactional
@@ -32,28 +31,24 @@ public class UserService {
         return create(userDTO);
     }
 
-    public UserDTO readById(long id) {
+    public UserDTO readBy(long id) {
         return repository.findById(id)
-                .map(mapper::userToUserDTO)
+                .map(mapper::of)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
 
     }
 
     @Transactional
     public void delete(long id) {
-        UserDTO userDTO = readById(id);
-        repository.delete(mapper.userDTOtoUser(userDTO));
+        UserDTO userDTO = readBy(id);
+        repository.delete(mapper.of(userDTO));
     }
 
     public List<UserDTO> getAll() {
         return repository.findAll()
                 .stream()
-                .map(mapper::userToUserDTO)
-                .collect(Collectors.toList());
+                .map(mapper::of)
+                .toList();
     }
 
-    public void throwIfNotExist(long id) {
-        repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
-    }
 }

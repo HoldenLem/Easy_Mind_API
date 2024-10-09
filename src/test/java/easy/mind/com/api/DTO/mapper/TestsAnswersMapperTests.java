@@ -13,22 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
-public class TestsAnswersMapperTests {
+class TestsAnswersMapperTests {
     @Autowired
     TestsAnswersMapper mapper;
 
-    @Test
-    void shouldConvertTestsAnswersToTestsAnswersDTO() {
-        testConversion(Instant.parse("2008-11-07T3:16:20.00Z"));
-    }
 
     @Test
-    void shouldConvertTestsAnswersToTestsAnswersDTO_WithNullableModifiedAt() {
-        testConversion(null);
-    }
-
-    @Test
-    void shouldConvertTestsAnswersDTOtoTestsAnswers() {
+    void dtoToEntity() {
         TestsAnswersDTO testsAnswersDTO = TestsAnswersDTO.builder()
                 .createdAt(null)
                 .modifiedAt(null)
@@ -43,12 +34,12 @@ public class TestsAnswersMapperTests {
                         TestsAnswersDTO.AnswersDTO.builder()
                                 .answers(Map.of(
                                         7, 8
-                                        ))
+                                ))
                                 .build()
 
                 ))
                 .build();
-        TestsAnswers actualTestsAnswers = mapper.testsAnswersDTOtoTestsAnswers(testsAnswersDTO);
+        TestsAnswers actualTestsAnswers = mapper.of(testsAnswersDTO);
         TestsAnswers expectedTestsAnswers = TestsAnswers.builder()
                 .createdAt(null)
                 .modifiedAt(null)
@@ -71,7 +62,7 @@ public class TestsAnswersMapperTests {
         assertThat(actualTestsAnswers).isEqualTo(expectedTestsAnswers);
     }
 
-    void testConversion(Instant modifiedAt) {
+    void entityToDto(Instant modifiedAt) {
         TestsAnswers testsAnswers = TestsAnswers.builder()
                 .id(2)
                 .createdAt(Instant.parse("2007-12-03T10:15:30.00Z"))
@@ -84,7 +75,7 @@ public class TestsAnswersMapperTests {
                                 .build()
                 ))
                 .build();
-        TestsAnswersDTO actualTestsAnswersDTO = mapper.testsAnswersToTestsAnswersDTO(testsAnswers);
+        TestsAnswersDTO actualTestsAnswersDTO = mapper.of(testsAnswers);
         TestsAnswersDTO expectedTestsAnswersDTO = TestsAnswersDTO.builder()
                 .createdAt(Instant.parse("2007-12-03T10:15:30.00Z"))
                 .modifiedAt(modifiedAt)
@@ -97,5 +88,15 @@ public class TestsAnswersMapperTests {
                 ))
                 .build();
         assertThat(actualTestsAnswersDTO).isEqualTo(expectedTestsAnswersDTO);
+    }
+
+    @Test
+    void entityToDto() {
+        entityToDto(Instant.parse("2008-11-07T3:16:20.00Z"));
+    }
+
+    @Test
+    void nullableField() {
+        entityToDto(null);
     }
 }

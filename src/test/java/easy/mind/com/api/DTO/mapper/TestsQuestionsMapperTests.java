@@ -17,7 +17,7 @@ public class TestsQuestionsMapperTests {
     TestsQuestionsMapper mapper;
 
     @Test
-    void shouldConvertTestsQuestionsToTestsQuestionsDTO() {
+    void entityToDTO() {
         TestsQuestions testsQuestions = TestsQuestions.builder()
                 .id(100)
                 .language("English")
@@ -42,7 +42,7 @@ public class TestsQuestionsMapperTests {
                                 .build()
                 ))
                 .build();
-        TestsQuestionsDTO actualTestsQuestionsDTO = mapper.testsQuestionsToTestsQuestionsDTO(testsQuestions);
+        TestsQuestionsDTO actualTestsQuestionsDTO = mapper.of(testsQuestions);
         TestsQuestionsDTO expectedTestQuestionDTO =  TestsQuestionsDTO.builder()
                 .id(100)
                 .language("English")
@@ -71,7 +71,7 @@ public class TestsQuestionsMapperTests {
     }
 
     @Test
-    void shouldConvertTestsQuestionsDTOtoTestsQuestions() {
+    void dtoToEntity() {
         TestsQuestionsDTO testsQuestionsDTO = TestsQuestionsDTO.builder()
                 .id(0)
                 .language("German")
@@ -86,7 +86,7 @@ public class TestsQuestionsMapperTests {
                                 .build()
                 ))
                 .build();
-        TestsQuestions actualTestsQuestions = mapper.testsQuestionsDTOtoTestQuestions(testsQuestionsDTO);
+        TestsQuestions actualTestsQuestions = mapper.of(testsQuestionsDTO);
         TestsQuestions expectedTestsQuestions = TestsQuestions.builder()
                 .id(0)
                 .language("German")

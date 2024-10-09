@@ -15,7 +15,7 @@ public class TestsQuestionsController {
     @GetMapping("/{id}")
     public ResponseEntity<TestsQuestionsDTO> read(@PathVariable int id,  @PathVariable int userId) {
         return ResponseEntity.ok()
-                .body(testsQuestionsFacade.getById(id));
+                .body(testsQuestionsFacade.getBy(id));
     }
 
 }

@@ -16,13 +16,13 @@ public class TestsQuestionsFacade {
     private final TestsQuestionsMapper mapper;
 
     public TestsQuestionsDTO create(TestsQuestionsDTO testsQuestionsDTO){
-        return mapper.testsQuestionsToTestsQuestionsDTO(
-                service.create(mapper.testsQuestionsDTOtoTestQuestions(testsQuestionsDTO))
+        return mapper.of(
+                service.create(mapper.of(testsQuestionsDTO))
                 );
     }
 
-    public TestsQuestionsDTO getById(long id){
-        return mapper.testsQuestionsToTestsQuestionsDTO(service.getById(id));
+    public TestsQuestionsDTO getBy(long id){
+        return mapper.of(service.getById(id));
     }
     public void delete(long id){
          service.delete(id);
@@ -31,7 +31,7 @@ public class TestsQuestionsFacade {
     public List<TestsQuestionsDTO> getAll(){
         return service.getAll()
                 .stream()
-                .map(mapper::testsQuestionsToTestsQuestionsDTO)
+                .map(mapper::of)
                 .toList();
     }
 }

@@ -9,12 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-public class UserMapperTests {
+class UserMapperTests {
     @Autowired
     UserMapper mapper;
 
     @Test
-    void shouldConvertUserToUserDTO() {
+    void entityDto() {
         User user = User.builder()
                 .id(1)
                 .firstName("Volodymyr")
@@ -22,7 +22,7 @@ public class UserMapperTests {
                 .password("secret123")
                 .email("ivanov.volodymyr@gmail.com")
                 .build();
-        UserDTO actualUserDto = mapper.userToUserDTO(user);
+        UserDTO actualUserDto = mapper.of(user);
         UserDTO expectedUserDTO = UserDTO.builder()
                 .id(1)
                 .firstName("Volodymyr")
@@ -34,7 +34,7 @@ public class UserMapperTests {
     }
 
     @Test
-    void shouldConvertUserDTOtoUser() {
+    void dtoToEntity() {
         UserDTO userDTO= UserDTO.builder()
                 .id(0)
                 .firstName("Natalia")
@@ -42,7 +42,7 @@ public class UserMapperTests {
                 .password("12345678")
                 .email("jonson.natalia@gmail.edu")
                 .build();
-        User actualUser = mapper.userDTOtoUser(userDTO);
+        User actualUser = mapper.of(userDTO);
         User expectedUser = User.builder()
                 .id(0)
                 .firstName("Natalia")
