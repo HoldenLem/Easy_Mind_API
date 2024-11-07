@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: false
+    database: postgresql
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/easymind'
+    username: admin
+    password: 1234
+  flyway:
+    enabled: true
+    locations: 'classpath:db.migration'

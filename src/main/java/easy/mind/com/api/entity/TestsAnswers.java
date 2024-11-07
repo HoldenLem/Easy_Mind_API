@@ -16,6 +16,7 @@ import java.util.Map;
 @SuperBuilder
 
 @Entity
+@Table(name = "result_answers")
 public class TestsAnswers extends BaseEntity {
 
     @Column(nullable = false)

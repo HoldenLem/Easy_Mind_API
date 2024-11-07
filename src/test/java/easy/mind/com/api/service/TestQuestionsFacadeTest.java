@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TestQuestionsFacadeTest {
+class TestQuestionsFacadeTest {
     
     @Mock
     private TestsQuestionsService service;
@@ -33,40 +33,40 @@ public class TestQuestionsFacadeTest {
     private TestsQuestionsMapper mapper;
 
     @Test
-    public void create_successTestsQuestions() {
+    void create_success() {
         //given
         TestsQuestionsDTO expectedTestsQuestionsDTO = createTestsQuestionsDTOForTesting();
         TestsQuestionsDTO expectedTestsQuestionsDTOForReturn = createTestsQuestionsDTOForTesting();
-        when(service.create(mapper.testsQuestionsDTOtoTestQuestions(expectedTestsQuestionsDTO)))
-                .thenReturn(mapper.testsQuestionsDTOtoTestQuestions(expectedTestsQuestionsDTOForReturn));
+        when(service.create(mapper.of(expectedTestsQuestionsDTO)))
+                .thenReturn(mapper.of(expectedTestsQuestionsDTOForReturn));
 
         //when
         TestsQuestionsDTO actualTestsQuestions = facade.create(expectedTestsQuestionsDTO);
 
         //then
         assertEquals(actualTestsQuestions, expectedTestsQuestionsDTOForReturn);
-        verify(service).create(mapper.testsQuestionsDTOtoTestQuestions(expectedTestsQuestionsDTO));
+        verify(service).create(mapper.of(expectedTestsQuestionsDTO));
     }
 
 
     @Test
-    public void get_successTestsQuestionById() {
+    void get_success() {
         //given
-        TestsQuestions expectedTestsQuestions = mapper.testsQuestionsDTOtoTestQuestions(
+        TestsQuestions expectedTestsQuestions = mapper.of(
                 createTestsQuestionsDTOForTesting()
                 );
         Mockito.when(service.getById(1L)).thenReturn(expectedTestsQuestions);
 
         //when
-        TestsQuestionsDTO actualTestsQuestions = facade.getById(1);
+        TestsQuestionsDTO actualTestsQuestions = facade.getBy(1);
 
         //then
-        assertEquals(actualTestsQuestions, mapper.testsQuestionsToTestsQuestionsDTO(expectedTestsQuestions) , "Test questions not exist");
+        assertEquals(actualTestsQuestions, mapper.of(expectedTestsQuestions) , "Test questions not exist");
         verify(service).getById(1L);
     }
 
     @Test
-    public void delete_successful() {
+    void delete_successful() {
         // when
         facade.delete(1);
 
@@ -76,16 +76,16 @@ public class TestQuestionsFacadeTest {
     }
 
     @Test
-    public void getAll(){
+    void getAll(){
         //given
-        TestsQuestions expectedTestsQuestions = mapper.testsQuestionsDTOtoTestQuestions(createTestsQuestionsDTOForTesting());
+        TestsQuestions expectedTestsQuestions = mapper.of(createTestsQuestionsDTOForTesting());
         when(service.getAll()).thenReturn(List.of(expectedTestsQuestions));
 
         //when
         List<TestsQuestionsDTO> actualListForReturn = facade.getAll();
 
         //then
-        assertEquals(actualListForReturn, List.of(mapper.testsQuestionsToTestsQuestionsDTO(expectedTestsQuestions)));
+        assertEquals(actualListForReturn, List.of(mapper.of(expectedTestsQuestions)));
         verify(service).getAll();
 
     }

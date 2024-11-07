@@ -1,5 +1,4 @@
-
-CREATE TABLE IF NOT EXISTS easymind.user_table  (
+CREATE TABLE IF NOT EXISTS user_table  (
   id BIGSERIAL PRIMARY KEY NOT NULL,
   first_name TEXT,
   last_name TEXT,

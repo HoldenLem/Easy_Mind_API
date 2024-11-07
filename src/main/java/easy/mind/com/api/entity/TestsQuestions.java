@@ -16,10 +16,12 @@ import java.util.Map;
 @AllArgsConstructor
 
 @Entity
+@Table(name = "questionary")
 public class TestsQuestions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "bigserial")
     private long id;
 
     @Column(nullable = false)
