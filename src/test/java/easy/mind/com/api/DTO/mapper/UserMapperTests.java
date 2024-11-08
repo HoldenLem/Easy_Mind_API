@@ -2,6 +2,7 @@ package easy.mind.com.api.DTO.mapper;
 
 import easy.mind.com.api.DTO.UserDTO;
 import easy.mind.com.api.entity.User;
+import easy.mind.com.api.util.Users;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,41 +16,27 @@ class UserMapperTests {
 
     @Test
     void entityDto() {
-        User user = User.builder()
-                .id(1)
-                .firstName("Volodymyr")
-                .lastName("Ivanov")
-                .password("secret123")
-                .email("ivanov.volodymyr@gmail.com")
-                .build();
+        User user = Users.entity();
+        UserDTO expectedUserDTO = Users.dto();
+
         UserDTO actualUserDto = mapper.of(user);
-        UserDTO expectedUserDTO = UserDTO.builder()
-                .id(1)
-                .firstName("Volodymyr")
-                .lastName("Ivanov")
-                .password("secret123")
-                .email("ivanov.volodymyr@gmail.com")
-                .build();
+
         assertThat(actualUserDto).isEqualTo(expectedUserDTO);
+        assertThat(actualUserDto.getFirstName()).isEqualTo(expectedUserDTO.getFirstName());
+        assertThat(actualUserDto.getLastName()).isEqualTo(expectedUserDTO.getLastName());
+
     }
 
     @Test
     void dtoToEntity() {
-        UserDTO userDTO= UserDTO.builder()
-                .id(0)
-                .firstName("Natalia")
-                .lastName("Jonson")
-                .password("12345678")
-                .email("jonson.natalia@gmail.edu")
-                .build();
+        UserDTO userDTO= Users.dto();
+        User expectedUser = Users.entity();
+
         User actualUser = mapper.of(userDTO);
-        User expectedUser = User.builder()
-                .id(0)
-                .firstName("Natalia")
-                .lastName("Jonson")
-                .password("12345678")
-                .email("jonson.natalia@gmail.edu")
-                .build();
+
         assertThat(actualUser).isEqualTo(expectedUser);
+        assertThat(actualUser.getFirstName()).isEqualTo(expectedUser.getFirstName());
+        assertThat(actualUser.getLastName()).isEqualTo(expectedUser.getLastName());
+
     }
 }
